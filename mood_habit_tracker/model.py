@@ -27,8 +27,19 @@ class User(db.Model):
     password = db.Column(db.String(50),
                          nullable=False)
 
+    #Relationships
+    habits = db.relationship('Habit')
+    moods = db.relationship('Mood')
+    weather = db.relationship('Weather')
+
     def __repr__(self):
-        """Print user data object pretty."""
+        """Show user data object info."""
+
+        return f'User ID: {self.user_id}\n'
+               f'Name: {self.first_name} {self.last_name}\n'
+               f'Age: {self.age}\n'
+               f'Email: {self.email}\n'
+
 
 class Habit(db.Model):
     """Data model for habits."""
@@ -47,8 +58,18 @@ class Habit(db.Model):
                            db.ForeignKey('weather.weather_id'),
                            nullable=False)
 
+    #Relationships
+    users = db.relationship('User')
+    weather = db.relationship('Weather')
+
     def __repr__(self):
-        """Print habit data object pretty."""
+        """Show habit data object info."""
+
+        return f'Habit ID: {self.habit_id}\n'
+               f'Habit: {self.habit}\n'
+               f'User ID: {self.user_id}\n'
+               f'Weather ID: {self.weather_id}\n'
+
 
 class Mood(db.Model):
     """Data model for moods."""
@@ -69,8 +90,19 @@ class Mood(db.Model):
                            db.ForeignKey('weather.weather_id'),
                            nullable=False)
 
+    #Relationships
+    users = db.relationship('User')
+    weather = db.relationship('Weather')
+
     def __repr__(self):
-        """Print user mood object pretty."""
+        """Show user mood object info."""
+
+        return f'Mood ID: {self.mood_id}\n'
+               f'Mood: {self.mood}\n'
+               f'Intesity: {self.intensity}\n'
+               f'User ID: {self.user_id}\n'
+               f'Weather ID: {self.weather_id}\n'
+
 
 class Weather(db.Model):
     """Data model for moods."""
@@ -92,8 +124,18 @@ class Weather(db.Model):
                         db.ForeignKey('users.user_id'),
                         nullable=False)
 
+    #Relationship
+    users = db.relationship('User')
+
     def __repr__(self):
-        """Print user weather object pretty."""
+        """Show user weather object info."""
+
+        return f'Weather ID: {self.weather_id}\n'
+               f'Time: {self.time}\n'
+               f'Location: {self.location}\n'
+               f'Sky Condition: {self.sky_condition}\n'
+               f'Temp: {self.temp}\n'
+               f'User Id: {self.user_id}\n'
 
 
 
