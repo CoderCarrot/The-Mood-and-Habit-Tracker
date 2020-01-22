@@ -1,10 +1,7 @@
-from flask import Flask
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-
-app = Flask(__name__) #What? Why not turning red?
-app.secret_key = 'secrets are fun'
 ###############################################################################
 
 class User(db.Model):
@@ -30,15 +27,15 @@ class User(db.Model):
     #Relationships
     habits = db.relationship('Habit')
     moods = db.relationship('Mood')
-    weather = db.relationship('Weather')
+    weathers = db.relationship('Weather')
 
     def __repr__(self):
         """Show user data object info."""
 
-        return f'User ID: {self.user_id}\n'
-               f'Name: {self.first_name} {self.last_name}\n'
-               f'Age: {self.age}\n'
-               f'Email: {self.email}\n'
+        return f'<User ID: {self.user_id}\n\
+                  Name: {self.first_name} {self.last_name}\n\
+                  Age: {self.age}\n\
+                  Email: {self.email}>'
 
 
 class Habit(db.Model):
@@ -55,20 +52,17 @@ class Habit(db.Model):
                         db.ForeignKey('users.user_id'),
                         nullable=False)
     weather_id = db.Column(db.Integer,
-                           db.ForeignKey('weather.weather_id'),
+                           db.ForeignKey('weathers.weather_id'),
                            nullable=False)
 
     #Relationships
     users = db.relationship('User')
-    weather = db.relationship('Weather')
+    weathers = db.relationship('Weather')
 
     def __repr__(self):
         """Show habit data object info."""
 
-        return f'Habit ID: {self.habit_id}\n'
-               f'Habit: {self.habit}\n'
-               f'User ID: {self.user_id}\n'
-               f'Weather ID: {self.weather_id}\n'
+        return f'<Habit ID: {self.habit_id}\nHabit: {self.habit}\nUser ID: {self.user_id}\nWeather ID: {self.weather_id}>'
 
 
 class Mood(db.Model):
@@ -87,32 +81,28 @@ class Mood(db.Model):
                         db.ForeignKey('users.user_id'),
                         nullable=False)
     weather_id = db.Column(db.Integer,
-                           db.ForeignKey('weather.weather_id'),
+                           db.ForeignKey('weathers.weather_id'),
                            nullable=False)
 
     #Relationships
     users = db.relationship('User')
-    weather = db.relationship('Weather')
+    weathers = db.relationship('Weather')
 
     def __repr__(self):
         """Show user mood object info."""
 
-        return f'Mood ID: {self.mood_id}\n'
-               f'Mood: {self.mood}\n'
-               f'Intesity: {self.intensity}\n'
-               f'User ID: {self.user_id}\n'
-               f'Weather ID: {self.weather_id}\n'
+        return f'<Mood ID: {self.mood_id}\nMood: {self.mood}\nIntesity: {self.intensity}\nUser ID: {self.user_id}\nWeather ID: {self.weather_id}>'
 
 
 class Weather(db.Model):
     """Data model for moods."""
 
-    __tablename__ = 'weather'
+    __tablename__ = 'weathers'
 
     weather_id = db.Column(db.Integer,
                            primary_key=True,
                            autoincrement=True)
-    time = db.Column(db.Timestamp, #Is this correct?
+    time = db.Column(db.TIMESTAMP,
                      nullable=False)
     location = db.Column(db.Integer,
                          nullable=False)
@@ -126,25 +116,23 @@ class Weather(db.Model):
 
     #Relationship
     users = db.relationship('User')
+    habits = db.relationship('Habit')
+    moods = db.relationship('Mood')
+
 
     def __repr__(self):
         """Show user weather object info."""
 
-        return f'Weather ID: {self.weather_id}\n'
-               f'Time: {self.time}\n'
-               f'Location: {self.location}\n'
-               f'Sky Condition: {self.sky_condition}\n'
-               f'Temp: {self.temp}\n'
-               f'User Id: {self.user_id}\n'
+        return f'<Weather ID: {self.weather_id}\nTime: {self.time}\nLocation: {self.location}\nSky Condition: {self.sky_condition}\nTemp: {self.temp}\nUser Id: {self.user_id}>'
 
 
 
 
 ###############################################################################
-def connect_to_db(app, db_name):
+def connect_to_db(app):
     """Connect to database."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///{db_name}"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///mood_habit_tracker"
     app.config["SQLALCHEMY_ECHO"] = True
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -152,5 +140,6 @@ def connect_to_db(app, db_name):
     db.init_app(app)
 
 
-    if __name__ == "__main__":
-        connect_to_db(app, 'mood_habit_tracker')
+if __name__ == "__main__":
+  from server import app
+  connect_to_db(app)
