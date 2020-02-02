@@ -4,13 +4,18 @@ from model import (connect_to_db, User, Habit, Mood, Weather)
 app = Flask(__name__) #What? Why not turning red?
 app.secret_key = 'secrets are fun'
 
-# @app.route('/')
-# def homepage():
-#     """Show homepage."""
+@app.route('/')
+def get_homepage():
+    """Show homepage."""
 
-#     return render_template('index.html')
+    return render_template('index.html')
 
-# @app.route('/moods')
+@app.route('/moods')
+def enter_mood():
+    """Enter mood."""
+    
+
+    return 'Mood Entered'
 
 
 if __name__ == '__main__':
