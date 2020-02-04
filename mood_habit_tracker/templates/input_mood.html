@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Mood</title>
+</head>
+<body>
+    <form action="/moods" method="POST" name="mood_input">
+        Enter Mood: 
+        <select name="mood_options">
+            {% for mood in moods %}
+                <option value="{{ mood }}">{{ mood }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        Enter Intensity:
+        <select name="intensity">
+            {% for num in range(11) %}
+                <option value="{{ num }}">{{ num }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" name="submit_button" value="Submit Mood">
+    </form>
+</body>
+</html>
