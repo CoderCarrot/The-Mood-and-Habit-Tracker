@@ -37,6 +37,28 @@ def post_mood():
 
     return render_template("mood_entered.html")
 
+@app.route('/habits', methods=['GET'])
+def get_habit():
+    """Create mood form."""
+
+    habits = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
+
+    return render_template("input_habit.html", habits=habits)
+
+@app.route('/habits', methods=['POST'])
+def post_habit():
+    """Post mood data."""
+
+    habit = request.form.get('habit_options')
+    ins = Habit(habit=habit, 
+               user_id=PLACEHOLDER, 
+               weather_id=PLACEHOLDER)
+
+    db.session.add(ins)
+    db.session.commit()
+
+    return render_template("habit_entered.html")
+
 
 if __name__ == '__main__':
     connect_to_db(app)

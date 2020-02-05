@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Habit</title>
+</head>
+<body>
+    <form action="/habits" method="POST" name="habit_input">
+        Enter Mood: 
+        <select name="habit_options">
+            {% for habit in habits %}
+                <option value="{{ habit }}">{{ habit }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" name="submit_button" value="Submit Habit">
+    </form>
+</body>
+</html>
