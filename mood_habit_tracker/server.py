@@ -56,7 +56,7 @@ def post_habit():
     habit = request.form.get('habit_options')
     ins = Habit(habit=habit, 
                user_id=PLACEHOLDER, 
-               weather_id=PLACEHOLDER)
+               weather_id=4)#PLACEHOLDER
 
     db.session.add(ins)
 
@@ -85,7 +85,8 @@ def get_weather():
     ins = Weather(time=time,
                   location=location,
                   sky_condition=sky_condition,
-                  temp=temp_rounded)
+                  temp=temp_rounded,
+                  user_id=PLACEHOLDER)
 
     db.session.add(ins)
 
