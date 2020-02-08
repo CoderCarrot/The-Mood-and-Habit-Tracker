@@ -104,7 +104,7 @@ class Weather(db.Model):
                            autoincrement=True)
     time = db.Column(db.TIMESTAMP,
                      nullable=False)
-    location = db.Column(db.Integer,
+    location = db.Column(db.String(50),
                          nullable=False)
     sky_condition = db.Column(db.String(50),
                               nullable=False)
