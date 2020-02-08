@@ -29,12 +29,14 @@ def get_mood():
 def post_mood():
     """Post mood data."""
 
+    weather_id = get_weather()
+
     mood = request.form.get('mood_options')
     intensity = request.form.get('intensity')
     ins = Mood(mood=mood, 
                intensity=intensity, 
                user_id=PLACEHOLDER, 
-               weather_id=PLACEHOLDER)
+               weather_id=weather_id)
 
     db.session.add(ins)
     db.session.commit()
@@ -43,7 +45,7 @@ def post_mood():
 
 @app.route('/habits', methods=['GET'])
 def get_habit():
-    """Create mood form."""
+    """Create habit form."""
 
     habits = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
 
@@ -51,16 +53,16 @@ def get_habit():
 
 @app.route('/habits', methods=['POST'])
 def post_habit():
-    """Post mood data."""
+    """Post habit data."""
+
+    weather_id = get_weather()
 
     habit = request.form.get('habit_options')
     ins = Habit(habit=habit, 
                user_id=PLACEHOLDER, 
-               weather_id=4)#PLACEHOLDER
+               weather_id=weather_id)#PLACEHOLDER
 
-    db.session.add(ins)
-
-    get_weather()
+    db.session.add(ins)    
     db.session.commit()
 
     return render_template("habit_entered.html")
@@ -71,6 +73,7 @@ def get_weather():
     payload = {'APPID' : key,
                'zip' : PLACEHOLDER_ZIP }
 
+    # Get the current weather response from the openWeather API
     res = requests.get(url, params=payload)
 
     weather_info = res.json()
@@ -79,18 +82,23 @@ def get_weather():
     location = weather_info['name']
     sky_condition = weather_info['weather'][0]['description']
     temp_kelvin = weather_info['main']['temp']
-    temp = (temp_kelvin - 273.15) * 9/5 + 32
-    temp_rounded = round(temp, 1)
+    temp_farenheit = (temp_kelvin - 273.15) * 9/5 + 32
+    temp_int = int(temp_farenheit)
 
     ins = Weather(time=time,
                   location=location,
                   sky_condition=sky_condition,
-                  temp=temp_rounded,
+                  temp=temp_int,
                   user_id=PLACEHOLDER)
 
     db.session.add(ins)
 
-    return None
+    print(ins)
+
+    weather_entry = Weather.query.filter(Weather.user_id == PLACEHOLDER,
+                                         Weather.time == PLACEHOLDER_DATE).all()
+
+    return weather_entry[0].weather_id
 
 
 if __name__ == '__main__':
