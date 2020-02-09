@@ -2,15 +2,13 @@ from flask import (Flask, jsonify, render_template, request, session)
 from model import (db, connect_to_db, User, Habit, Mood, Weather)
 from secrets import key
 import requests
+import datetime
 
 app = Flask(__name__) #What? Why not turning red?
 app.secret_key = 'secrets are fun'
 
 # Placeholder value for ids of tables before slices are connected
 PLACEHOLDER = 1
-PLACEHOLDER_ZIP = '94404,us'
-PLACEHOLDER_DATE = '2010-01-02 01:00:00'
-
 
 @app.route('/')
 def get_homepage():
@@ -74,8 +72,6 @@ def post_habit():
 
     return render_template("habit_entered.html")
 
-
-
 def get_weather(zipcode):
 
     url = 'http://api.openweathermap.org/data/2.5/weather'
@@ -86,8 +82,8 @@ def get_weather(zipcode):
     res = requests.get(url, params=payload)
 
     weather_info = res.json()
-    time = PLACEHOLDER_DATE
-    # weather_info['dt']
+    timestamp = weather_info['dt']
+    time = datetime.datetime.fromtimestamp(timestamp)
     location = weather_info['name']
     sky_condition = weather_info['weather'][0]['description']
     temp_kelvin = weather_info['main']['temp']
@@ -105,7 +101,7 @@ def get_weather(zipcode):
     print(ins)
 
     weather_entry = Weather.query.filter(Weather.user_id == PLACEHOLDER,
-                                         Weather.time == PLACEHOLDER_DATE).all()
+                                         Weather.time == time).all()
 
     return weather_entry[0].weather_id
 
