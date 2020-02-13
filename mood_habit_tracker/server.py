@@ -14,7 +14,7 @@ PLACEHOLDER = 1
 def get_homepage():
     """Show homepage."""
 
-    return 'Homepage'
+    return render_template('base.html')
 
 
 @app.route('/moods', methods=['GET'])
@@ -24,6 +24,14 @@ def get_mood():
     moods = ['Motivation', 'Sadness', 'Clarity']
 
     return render_template("input_mood.html", moods=moods)
+
+# @app.route('/moods.json', methods=['GET'])
+# def get_mood_json():
+#     """Create mood form."""
+
+#     moods = ['Motivation', 'Sadness', 'Clarity']
+
+#     return jsonify({'moods': moods})
 
 
 @app.route('/moods', methods=['POST'])
@@ -64,8 +72,8 @@ def post_habit():
 
     habit = request.form.get('habit_options')
     ins = Habit(habit=habit, 
-               user_id=PLACEHOLDER, 
-               weather_id=weather_id)
+                user_id=PLACEHOLDER, 
+                weather_id=weather_id)
 
     db.session.add(ins)    
     db.session.commit()
@@ -97,13 +105,11 @@ def get_weather(zipcode):
                   user_id=PLACEHOLDER)
 
     db.session.add(ins)
+    db.session.commit()
 
-    print(ins)
+    weather_entry = ins.weather_id
 
-    weather_entry = Weather.query.filter(Weather.user_id == PLACEHOLDER,
-                                         Weather.time == time).all()
-
-    return weather_entry[0].weather_id
+    return weather_entry
 
 
 
