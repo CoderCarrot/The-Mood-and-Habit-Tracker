@@ -39,6 +39,13 @@ class Form extends React.Component {
         return pullDownMenus
     }
 
+    // did mount
+        // http req
+                // info
+        // state
+    // cond render
+        // spinner or no
+
     render() {
         return (
             <div>

@@ -10,6 +10,51 @@ app.secret_key = 'secrets are fun'
 # Placeholder value for ids of tables before slices are connected
 PLACEHOLDER = 1
 
+####################################################################################################################################################
+"""React page code"""
+
+@app.route('/moods.json', methods=['GET'])
+def get_mood_json():
+    """Send mood form options."""
+
+    moodChoices = [
+        {
+            'value': 'motivation',
+            'inner': 'Motivation'
+        },
+        {
+            'value': 'sadness',
+            'inner': 'Sadness'
+        },
+        {
+            'value': 'clarity',
+            'inner': 'Clarity'
+        },
+    ]
+
+    def create_num_dicts(numList):
+        num_dicts = []
+        for num in numList:
+            num_dicts.append(
+                {
+                    'value': num,
+                    'inner': num
+                }
+            )
+        return num_dicts
+    
+    #Number choices for the intensity pulldown menu
+    intensityChoices = create_num_dicts(range(0, 11));
+
+    # moodPullDowns = [moodChoices, intensityChoices]
+
+
+    return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
+
+
+
+######################################################################################################################################################
+"""Jinja page code"""
 
 @app.route('/')
 def get_homepage():
@@ -25,14 +70,6 @@ def get_mood():
     moods = ['Motivation', 'Sadness', 'Clarity']
 
     return render_template("input_mood.html", moods=moods)
-
-
-@app.route('/moods.json', methods=['GET'])
-def get_mood_json():
-    """Create mood form."""
-
-    return jsonify()
-
 
 @app.route('/moods', methods=['POST'])
 def post_mood():
@@ -80,6 +117,7 @@ def post_habit():
 
     return render_template("habit_entered.html")
 
+#####################################################################################################################################################
 
 def get_weather(zipcode):
 
