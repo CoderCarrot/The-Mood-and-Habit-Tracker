@@ -1,46 +1,46 @@
 class MoodForm extends React.Component {
         constructor(props) {
         super(props);
-        this.state = [];
+
+        this.state = { choices: null };
         this.makePullDown = this.makePullDown.bind(this);
+        this.updateMoodForm = this.updateMoodForm.bind(this);
+        
     }
 
-    makePullDown() {
-        const pullDownMenus = []
-        for (const mood of this.state) {
-            pullDownMenus.push(<PullDown choices={pullDown} />);
-        }
-        return pullDownMenus
-    }
-
-    // did mount
-        // http req
-                // info
-        // state
-    // cond render
-        // spinner or no
-
-    updateMoods(res) {
-        this.setState(res.moods, res.intensity);
+    updateMoodForm(res) {
+        this.setState({ choices: [res.moods, res.intensity] });
     }
     
     getMoodChoices() {
-        $.get('/moods.json', this.updateMoods);
+        $.get('/moods.json', this.updateMoodForm);
     }
 
     componentDidMount() {
         this.getMoodChoices();
     }
 
+    makePullDown() {
+        const pullDownMenus = [];
+
+        for (const pullDownChoices of this.state.choices) {
+            pullDownMenus.push(<PullDown choices={pullDownChoices} />);
+        }
+        return pullDownMenus
+    }
+
     render() {
-        return (
-            <div>
-                {this.makePullDown()}
-                <input type="text" name="zipcode" />
-                <br></br>
-                <input type="submit" value="Submit"/>
-            </div>
-        );
+        if (this.state.choices) {
+            return (
+                <div>
+                    {this.makePullDown()}
+                    <input type="text" name="zipcode" />
+                    <br></br>
+                    <input type="submit" value="Submit"/>
+                </div>
+            ); 
+        }
+        return <div>Loading...</div>
     }
 }
 

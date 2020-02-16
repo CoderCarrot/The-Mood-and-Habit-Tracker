@@ -3,6 +3,7 @@ from model import (db, connect_to_db, User, Habit, Mood, Weather)
 from secrets import key
 import requests
 import datetime
+import time
 
 app = Flask(__name__)
 app.secret_key = 'secrets are fun'
@@ -46,11 +47,9 @@ def get_mood_json():
     #Number choices for the intensity pulldown menu
     intensityChoices = create_num_dicts(range(0, 11));
 
-    # moodPullDowns = [moodChoices, intensityChoices]
-
+    time.sleep(5)
 
     return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
-
 
 
 ######################################################################################################################################################
