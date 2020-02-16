@@ -4,11 +4,12 @@ from secrets import key
 import requests
 import datetime
 
-app = Flask(__name__) #What? Why not turning red?
+app = Flask(__name__)
 app.secret_key = 'secrets are fun'
 
 # Placeholder value for ids of tables before slices are connected
 PLACEHOLDER = 1
+
 
 @app.route('/')
 def get_homepage():
@@ -25,13 +26,12 @@ def get_mood():
 
     return render_template("input_mood.html", moods=moods)
 
-# @app.route('/moods.json', methods=['GET'])
-# def get_mood_json():
-#     """Create mood form."""
 
-#     moods = ['Motivation', 'Sadness', 'Clarity']
+@app.route('/moods.json', methods=['GET'])
+def get_mood_json():
+    """Create mood form."""
 
-#     return jsonify({'moods': moods})
+    return jsonify()
 
 
 @app.route('/moods', methods=['POST'])
@@ -43,9 +43,9 @@ def post_mood():
 
     mood = request.form.get('mood_options')
     intensity = request.form.get('intensity')
-    ins = Mood(mood=mood, 
-               intensity=intensity, 
-               user_id=PLACEHOLDER, 
+    ins = Mood(mood=mood,
+               intensity=intensity,
+               user_id=PLACEHOLDER,
                weather_id=weather_id)
 
     db.session.add(ins)
@@ -71,20 +71,21 @@ def post_habit():
     weather_id = get_weather(zipcode)
 
     habit = request.form.get('habit_options')
-    ins = Habit(habit=habit, 
-                user_id=PLACEHOLDER, 
+    ins = Habit(habit=habit,
+                user_id=PLACEHOLDER,
                 weather_id=weather_id)
 
-    db.session.add(ins)    
+    db.session.add(ins)
     db.session.commit()
 
     return render_template("habit_entered.html")
 
+
 def get_weather(zipcode):
 
     url = 'http://api.openweathermap.org/data/2.5/weather'
-    payload = {'APPID' : key,
-               'zip' : f'{zipcode},us'}
+    payload = {'APPID': key,
+               'zip': f'{zipcode},us'}
 
     # Get the current weather response from the openWeather API
     res = requests.get(url, params=payload)
@@ -110,7 +111,6 @@ def get_weather(zipcode):
     weather_entry = ins.weather_id
 
     return weather_entry
-
 
 
 if __name__ == '__main__':
