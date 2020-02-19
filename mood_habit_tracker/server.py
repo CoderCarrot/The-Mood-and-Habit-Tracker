@@ -51,6 +51,27 @@ def get_mood_json():
 
     return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
 
+
+@app.route('/moods.json', methods=['POST'])
+def post_mood_json():
+
+    zipcode = request.form.get('zipcode')
+    weather_info = get_weather(zipcode)
+    weather_insert = parse_weather(weather_info)
+    weather_id = post_weather(weather_insert)
+
+    mood = request.form.get('mood_options')
+    intensity = request.form.get('intensity')
+    ins = Mood(mood=mood,
+               intensity=intensity,
+               user_id=PLACEHOLDER,
+               weather_id=weather_id)
+
+    db.session.add(ins)
+    db.session.commit()
+
+    return 'This months mood entries'
+
 @app.route('/habits.json', methods=['GET'])
 def get_habit_json():
 
@@ -73,6 +94,23 @@ def get_habit_json():
 
     return jsonify({'habits': habitChoices})
 
+@app.route('/habits.json', methods=['POST'])
+def post_habit_json():
+
+    zipcode = request.form.get('zipcode')
+    weather_info = get_weather(zipcode)
+    weather_insert = parse_weather(weather_info)
+    weather_id = post_weather(weather_insert)
+
+    habit = request.form.get('habit_options')
+    ins = Habit(habit=habit,
+                user_id=PLACEHOLDER,
+                weather_id=weather_id)
+
+    db.session.add(ins)
+    db.session.commit()
+
+    return 'This months habit entries'
 
 ######################################################################################################################################################
 """Jinja page code"""

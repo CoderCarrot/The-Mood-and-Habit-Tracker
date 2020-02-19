@@ -36,7 +36,7 @@ class MoodForm extends React.Component {
                     {this.makePullDown()}
                     <input type="text" name="zipcode" />
                     <br></br>
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value="Submit Mood"/>
                 </div>
             ); 
         }
