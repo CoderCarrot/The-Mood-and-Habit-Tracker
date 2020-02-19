@@ -25,6 +25,7 @@ class PullDown extends React.Component {
     }
 }
 
+// Attempt at a re-usable form component. Not used. 
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -38,13 +39,6 @@ class Form extends React.Component {
         }
         return pullDownMenus
     }
-
-    // did mount
-        // http req
-                // info
-        // state
-    // cond render
-        // spinner or no
 
     render() {
         return (

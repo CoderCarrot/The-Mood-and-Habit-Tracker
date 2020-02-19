@@ -51,6 +51,28 @@ def get_mood_json():
 
     return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
 
+@app.route('/habits.json', methods=['GET'])
+def get_habit_json():
+
+    habitChoices = [
+        {
+            'value': 'drink',
+            'inner': 'Drink 20 oz of water'
+        },
+        {
+            'value': 'sleep',
+            'inner': 'Sleep 8 hours'
+        },
+        {
+            'value': 'exercise',
+            'inner': 'Exercise for 20 mins'
+        },
+    ]
+
+    time.sleep(5)
+
+    return jsonify({'habits': habitChoices})
+
 
 ######################################################################################################################################################
 """Jinja page code"""
