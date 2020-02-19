@@ -97,7 +97,9 @@ def post_mood():
     """Post mood data."""
 
     zipcode = request.form.get('zipcode')
-    weather_id = get_weather(zipcode)
+    weather_info = get_weather(zipcode)
+    weather_insert = parse_weather(weather_info)
+    weather_id = post_weather(weather_insert)
 
     mood = request.form.get('mood_options')
     intensity = request.form.get('intensity')
@@ -126,7 +128,9 @@ def post_habit():
     """Post habit data."""
 
     zipcode = request.form.get('zipcode')
-    weather_id = get_weather(zipcode)
+    weather_info = get_weather(zipcode)
+    weather_insert = parse_weather(weather_info)
+    weather_id = post_weather(weather_insert)
 
     habit = request.form.get('habit_options')
     ins = Habit(habit=habit,
@@ -140,7 +144,9 @@ def post_habit():
 
 #####################################################################################################################################################
 
+
 def get_weather(zipcode):
+    """Takes in a zipcode, sends the request to the API and returns the jsonified response."""
 
     url = 'http://api.openweathermap.org/data/2.5/weather'
     payload = {'APPID': key,
@@ -148,8 +154,14 @@ def get_weather(zipcode):
 
     # Get the current weather response from the openWeather API
     res = requests.get(url, params=payload)
-
     weather_info = res.json()
+
+    return weather_info
+
+    
+def parse_weather(weather_info):
+    """Takes in jsonified weather info and parses it for entry into the database. Returns the data to be inserted."""
+    
     timestamp = weather_info['dt']
     time = datetime.datetime.fromtimestamp(timestamp)
     location = weather_info['name']
@@ -163,13 +175,19 @@ def get_weather(zipcode):
                   sky_condition=sky_condition,
                   temp=temp_int,
                   user_id=PLACEHOLDER)
+    
+    return ins
 
-    db.session.add(ins)
+
+def post_weather(insert):
+    """Takes in a database insert to insert into the database and commit. Obtains and returns the insert id"""
+
+    db.session.add(insert)
     db.session.commit()
 
-    weather_entry = ins.weather_id
+    weather_entry_id = insert.weather_id
 
-    return weather_entry
+    return weather_entry_id
 
 
 if __name__ == '__main__':
