@@ -17,7 +17,7 @@ class PullDown extends React.Component {
     render() {
         return (
             <div>
-                <select value={this.state.value} onChange={this.handleChange}>
+                <select>
                    {this.makeChoices()}
                 </select>
             </div>
