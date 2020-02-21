@@ -12,7 +12,8 @@ class MoodForm extends React.Component {
         this.handleIntensityChange = this.handleIntensityChange.bind(this);
         this.handleMoodChange = this.handleMoodChange.bind(this);
         this.handleZipChange = this.handleZipChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);        
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.postPost = this.postPost.bind(this);       
     }
 
     updateMoodForm(res) {
@@ -52,8 +53,14 @@ class MoodForm extends React.Component {
         return pullDownChoices
     }
 
+    postPost() {
+        alert('Success!')
+    }
+
     handleSubmit(event) {
         event.preventDefault();
+        $.post('/moods.json', this.state, this.postPost)
+
         // refresh page with input data for last month
     }
 

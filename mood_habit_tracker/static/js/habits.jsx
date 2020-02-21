@@ -42,13 +42,13 @@ class HabitForm extends React.Component {
         return pullDownChoices
     }
 
-    // postPost() {
-    //     this.alert('Success!')
-    // }
+    postPost() {
+        alert('Success!')
+    }
 
     handleSubmit(event) {
         event.preventDefault();
-        // $.post('/habits.json', this.state, this.postPost)
+        $.post('/habits.json', this.state, this.postPost)
         // refresh page with input data for last month
     }
 

@@ -48,7 +48,7 @@ def post_mood_json():
     weather_insert = parse_weather(weather_info)
     weather_id = post_weather(weather_insert)
 
-    mood = request.form.get('mood_options')
+    mood = request.form.get('mood')
     intensity = request.form.get('intensity')
     ins = Mood(mood=mood,
                intensity=intensity,
@@ -77,7 +77,7 @@ def post_habit_json():
     weather_insert = parse_weather(weather_info)
     weather_id = post_weather(weather_insert)
 
-    habit = request.form.get('habit_options')
+    habit = request.form.get('habit')
     ins = Habit(habit=habit,
                 user_id=PLACEHOLDER,
                 weather_id=weather_id)
