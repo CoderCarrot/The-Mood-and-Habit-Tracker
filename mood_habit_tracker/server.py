@@ -18,36 +18,24 @@ PLACEHOLDER = 1
 def get_mood_json():
     """Send mood form options."""
 
-    moodChoices = [
-        {
-            'value': 'motivation',
-            'inner': 'Motivation'
-        },
-        {
-            'value': 'sadness',
-            'inner': 'Sadness'
-        },
-        {
-            'value': 'clarity',
-            'inner': 'Clarity'
-        },
-    ]
+    moodChoices = ['Motivation', 'Sadness', 'Clarity']
 
-    def create_num_dicts(numList):
-        num_dicts = []
-        for num in numList:
-            num_dicts.append(
-                {
-                    'value': num,
-                    'inner': num
-                }
-            )
-        return num_dicts
+    # def create_num_dicts(numList):
+    #     num_dicts = []
+    #     for num in numList:
+    #         num_dicts.append(
+    #             {
+    #                 'value': num,
+    #                 'inner': num
+    #             }
+    #         )
+    #     return num_dicts
     
     #Number choices for the intensity pulldown menu
-    intensityChoices = create_num_dicts(range(0, 11));
+    # intensityChoices = create_num_dicts(range(0, 11));
+    intensityChoices = list(range(11))
 
-    time.sleep(5)
+    time.sleep(1)
 
     return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
 
@@ -75,22 +63,9 @@ def post_mood_json():
 @app.route('/habits.json', methods=['GET'])
 def get_habit_json():
 
-    habitChoices = [
-        {
-            'value': 'drink',
-            'inner': 'Drink 20 oz of water'
-        },
-        {
-            'value': 'sleep',
-            'inner': 'Sleep 8 hours'
-        },
-        {
-            'value': 'exercise',
-            'inner': 'Exercise for 20 mins'
-        },
-    ]
+    habitChoices = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
 
-    time.sleep(5)
+    time.sleep(1)
 
     return jsonify({'habits': habitChoices})
 
