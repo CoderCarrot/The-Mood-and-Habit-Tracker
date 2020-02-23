@@ -18,7 +18,7 @@ PLACEHOLDER = 1
 def get_mood_json():
     """Send mood form options."""
 
-    moodChoices = ['Motivation', 'Sadness', 'Clarity']
+    mood_choices = ['Motivation', 'Sadness', 'Clarity']
 
     # def create_num_dicts(numList):
     #     num_dicts = []
@@ -33,11 +33,11 @@ def get_mood_json():
     
     #Number choices for the intensity pulldown menu
     # intensityChoices = create_num_dicts(range(0, 11));
-    intensityChoices = list(range(11))
+    intensity_choices = list(range(11))
 
     time.sleep(1)
 
-    return jsonify({'moods': moodChoices, 'intensity': intensityChoices})
+    return jsonify({'moods': mood_choices, 'intensity': intensity_choices})
 
 
 @app.route('/moods.json', methods=['POST'])
@@ -63,11 +63,11 @@ def post_mood_json():
 @app.route('/habits.json', methods=['GET'])
 def get_habit_json():
 
-    habitChoices = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
+    habit_choices = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
 
     time.sleep(1)
 
-    return jsonify({'habits': habitChoices})
+    return jsonify({'habits': habit_choices})
 
 @app.route('/habits.json', methods=['POST'])
 def post_habit_json():
@@ -86,6 +86,15 @@ def post_habit_json():
     db.session.commit()
 
     return 'This months habit entries'
+
+@app.route('/comparison.json', methods=['GET'])
+def get_comparison_choices_json():
+
+    comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather']
+
+    time.sleep(1)
+
+    return jsonify({'compare': comparison_choices})
 
 ######################################################################################################################################################
 """Jinja page code"""
