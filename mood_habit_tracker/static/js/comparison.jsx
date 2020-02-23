@@ -18,7 +18,7 @@ class ComparisonForm extends React.Component {
     }
     
     getCompareChoices() {
-        $.get('/comparison.json', this.updateComparisonForm);
+        $.get('/comparison_form.json', this.updateComparisonForm);
     }
 
     componentDidMount() {
@@ -35,6 +35,7 @@ class ComparisonForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        <ComparisonForm xaxis={this.state.xAxis} yaxis={this.state.yAxis} />
     //    render compare chart
 
         // refresh page with input data for last month
@@ -85,10 +86,16 @@ class ComparisonForm extends React.Component {
 
 ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 
-class CompareChart extends React.Component {
+class ComparisonChart extends React.Component {
     constructor(props) {
         super(props);
     }
+
+    data = {xAxis = this.props.xaxis, yAxis = this.props.yaxis}
+
+    $.get('/comparison_chart_data.json', data, this.createChart);
+
+    
 
     render() {
         null

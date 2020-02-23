@@ -10,7 +10,7 @@ class HabitForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleHabitChange = this.handleHabitChange.bind(this);
         this.handleZipChange = this.handleZipChange.bind(this);
-        // this.postPost = this.postPost.bind(this);
+        this.postPost = this.postPost.bind(this);
     }
 
     updateHabitForm(res) {
@@ -37,18 +37,20 @@ class HabitForm extends React.Component {
     makeHabitChoices() {
         const pullDownChoices = []
         for (const choice of this.state.choices) {
-            pullDownChoices.push(<option value={choice}>{choice}</option>)
+            pullDownChoices.push(<option value={choice}>{choice}</option>);
         }
         return pullDownChoices
     }
 
     postPost() {
-        alert('Success!')
+        alert('Success!');
+        this.setState({habit: 'Drink 20 oz of water'});
+        this.setState({zipcode: ' ' });
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        $.post('/habits.json', this.state, this.postPost)
+        event.preventDefault(); 
+        $.post('/habits.json', this.state, this.postPost);
         // refresh page with input data for last month
     }
 

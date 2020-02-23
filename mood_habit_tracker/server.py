@@ -87,7 +87,7 @@ def post_habit_json():
 
     return 'This months habit entries'
 
-@app.route('/comparison.json', methods=['GET'])
+@app.route('/comparison_form.json', methods=['GET'])
 def get_comparison_choices_json():
 
     comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather']
@@ -95,6 +95,38 @@ def get_comparison_choices_json():
     time.sleep(1)
 
     return jsonify({'compare': comparison_choices})
+
+@app.route('/comparison_chart.json', methods=['GET'])
+def get_comparison_chart_data():
+
+    x_axis = request.args.get('xAxis')
+    y_axis = request.args.get('yAxis')
+
+    habit_choices = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
+    mood_choices = ['Motivation', 'Sadness', 'Clarity']
+
+    #Get data for x-axis - make a func to call
+    if x_axis in habit_choices:
+        Habit.query.filter_by(habit=x_axis).all()
+    elif x_axis in mood_choices:
+        Mood.query.filter_by(mood=x_axis).all()
+    else:
+        Weather.query.all()
+
+    #Get data for y-axis - make a func to call
+    if y_axis in habit_choices:
+        Habit.query.filter_by(habit=y_axis).all()
+    elif y_axis in mood_choices:
+        Mood.query.filter_by(mood=y_axis).all()
+    else:
+        Weather.query.all()
+
+    
+    
+
+    time.sleep(1)
+
+    return 'Something'
 
 ######################################################################################################################################################
 """Jinja page code"""
