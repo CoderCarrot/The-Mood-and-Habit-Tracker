@@ -94,7 +94,7 @@ def get_comparison_choices_json():
 
     time.sleep(1)
 
-    return jsonify({'x_choices': comparison_choices[3:], 'y_choices': comparison_choices[:6]})
+    return jsonify({'x_choices': comparison_choices[3:], 'y_choices': comparison_choices[:3]})
 
 @app.route('/comparison_chart.json', methods=['GET'])
 def get_comparison_chart_data():
@@ -107,19 +107,13 @@ def get_comparison_chart_data():
 
     #Get data for x-axis - make a func to call
     if x_axis in habit_choices:
-       x_data = Habit.query.filter_by(habit=x_axis).all()
-    elif x_axis in mood_choices:
-       x_data = Mood.query.filter_by(mood=x_axis).all()
+        x_data = Habit.query.filter_by(habit=x_axis).all()
     else:
         x_data = Weather.query.all()
 
     #Get data for y-axis - make a func to call
-    if y_axis in habit_choices:
-        y_data = Habit.query.filter_by(habit=y_axis).all()
-    elif y_axis in mood_choices:
-        y_data = Mood.query.filter_by(mood=y_axis).all()
-    else:
-        y_data = Weather.query.all()
+    y_data = Mood.query.filter_by(mood=y_axis).all()
+    
 
     
     
