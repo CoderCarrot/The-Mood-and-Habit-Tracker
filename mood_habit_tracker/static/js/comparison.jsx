@@ -2,19 +2,20 @@ class ComparisonForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { choices: null,
+        this.state = { Choices: null,
                        xAxis: 'Motivation',
                        yAxis: 'Motivation' };
         
-        this.makeChoices = this.makeChoices.bind(this);
+        this.makeXChoices = this.makeXChoices.bind(this);
+        this.makeYChoices = this.makeYChoices.bind(this);
         this.updateComparisonForm = this.updateComparisonForm.bind(this);
         this.handleXAxisChange = this.handleXAxisChange.bind(this);
         this.handleYAxisChange = this.handleYAxisChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this); 
+        // this.handleSubmit = this.handleSubmit.bind(this); 
     }
 
     updateComparisonForm(res) {
-        this.setState({ choices: res.compare });
+        this.setState({ choices: [res.x_choices, res.y_choices] });
     }
     
     getCompareChoices() {
@@ -25,21 +26,29 @@ class ComparisonForm extends React.Component {
         this.getCompareChoices();
     }
 
-    makeChoices() {
+    makeXChoices() {
         const pullDownChoices = []
-        for (const choice of this.state.choices) {
+        for (const choice of this.state.choices[0]) {
             pullDownChoices.push(<option value={choice}>{choice}</option>)
         }
         return pullDownChoices
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        <ComparisonForm xaxis={this.state.xAxis} yaxis={this.state.yAxis} />
-    //    render compare chart
-
-        // refresh page with input data for last month
+    makeYChoices() {
+        const pullDownChoices = []
+        for (const choice of this.state.choices[1]) {
+            pullDownChoices.push(<option value={choice}>{choice}</option>)
+        }
+        return pullDownChoices
     }
+
+    // handleSubmit(event) {
+    //     event.preventDefault();
+    //     <ComparisonChart xaxis={this.state.xAxis} yaxis={this.state.yAxis} />
+    // //    render compare chart
+
+    //     // refresh page with input data for last month
+    // }
 
     handleXAxisChange(event) {
         console.log(event.target.value);
@@ -62,7 +71,7 @@ class ComparisonForm extends React.Component {
                             X-Axis:
                             <br></br>
                             <select xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
-                                {this.makeChoices()}
+                                {this.makeXChoices()}
                             </select>
                         </label>
                         <br></br>
@@ -70,7 +79,7 @@ class ComparisonForm extends React.Component {
                             Y-Axis:
                             <br></br>
                             <select yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
-                                {this.makeChoices()}
+                                {this.makeYChoices()}
                             </select>
                         </label>
                         <br></br>
@@ -86,21 +95,21 @@ class ComparisonForm extends React.Component {
 
 ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 
-class ComparisonChart extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+// class ComparisonChart extends React.Component {
+//     constructor(props) {
+//         super(props);
+//     }
 
-    data = {xAxis = this.props.xaxis, yAxis = this.props.yaxis}
+//     data = {xAxis = this.props.xaxis, yAxis = this.props.yaxis}
 
-    $.get('/comparison_chart_data.json', data, this.createChart);
+//     $.get('/comparison_chart_data.json', data, this.createChart);
 
     
 
-    render() {
-        null
-    }
-}
+//     render() {
+//         null
+//     }
+// }
 
 class ComparePage extends React.Component {
     constructor(props) {

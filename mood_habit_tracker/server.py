@@ -90,11 +90,11 @@ def post_habit_json():
 @app.route('/comparison_form.json', methods=['GET'])
 def get_comparison_choices_json():
 
-    comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather']
+    comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather temperature', 'Weather sky condition']
 
     time.sleep(1)
 
-    return jsonify({'compare': comparison_choices})
+    return jsonify({'x_choices': comparison_choices[3:], 'y_choices': comparison_choices[:6]})
 
 @app.route('/comparison_chart.json', methods=['GET'])
 def get_comparison_chart_data():
@@ -107,19 +107,19 @@ def get_comparison_chart_data():
 
     #Get data for x-axis - make a func to call
     if x_axis in habit_choices:
-        Habit.query.filter_by(habit=x_axis).all()
+       x_data = Habit.query.filter_by(habit=x_axis).all()
     elif x_axis in mood_choices:
-        Mood.query.filter_by(mood=x_axis).all()
+       x_data = Mood.query.filter_by(mood=x_axis).all()
     else:
-        Weather.query.all()
+        x_data = Weather.query.all()
 
     #Get data for y-axis - make a func to call
     if y_axis in habit_choices:
-        Habit.query.filter_by(habit=y_axis).all()
+        y_data = Habit.query.filter_by(habit=y_axis).all()
     elif y_axis in mood_choices:
-        Mood.query.filter_by(mood=y_axis).all()
+        y_data = Mood.query.filter_by(mood=y_axis).all()
     else:
-        Weather.query.all()
+        y_data = Weather.query.all()
 
     
     
