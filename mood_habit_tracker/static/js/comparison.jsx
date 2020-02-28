@@ -100,6 +100,18 @@ class ComparisonChart extends React.Component {
         super(props);
     }
 
+    createChart() {
+        let comparisonChart = new Chart(document.getElementById('comparison-chart'), {
+            type: 'bar',
+            data: {
+                labels: []
+                datasets: [{
+                    data: []
+                }]
+            }
+        });
+    }
+
     data = {xAxis = this.props.xaxis, yAxis = this.props.yaxis}
 
     $.get('/comparison_chart_data.json', data, this.createChart);
