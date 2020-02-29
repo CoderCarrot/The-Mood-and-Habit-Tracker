@@ -104,31 +104,26 @@ def get_comparison_chart_data():
 
     habit_choices = ('Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins')
 
-    #Get data for x-axis - make a func to call
-    if x_axis in habit_choices:
-        habits = db.session.query(Weather, Habit).outerjoin(Habit).all()
+    # Query mood
+    # Get mood weather_ids
+    # Query weather to get list of time for matching weather_id
+    # Use list of time to compare habits and set true/false
+    
+    # or
 
+    # Join habit and weather - maybe not
+    # query for specific habit but only grab time
+    # use time to compare to mood time to group mood
+    # 
+    # join mood and weather - maybe not
+    # query for specific mood but only grab intensity and time
+    # group intensities by day
+    # Match groups with habit times or lack of times (if/else)
 
-        x_data = Habit.query.filter_by(habit=x_axis).all()
-        habit_datetime = []
-        for habit in x_data:
-            habit_datetime.append(habit.weathers.time)
-    else:
-        x_data = Weather.query.all()
-
-    #Get data for y-axis - make a func to call
-    y_data = Mood.query.filter_by(mood=y_axis).all()
-    mood_datetime = []
-    for mood in y_data:
-        mood_datetime.append(mood.weathers.time) 
-
-    for entry in mood_datetime:
-
-
-
-    data:{mood: 
-            {true(habit): intensity[1,6,8,9]}
-            {false(habit): intensity[8, 0, 5, 10]} }
+    # data:{mood: 
+    #         {true(habit): intensity[1,6,8,9]}
+    #         {false(habit): intensity[8, 0, 5, 10]} 
+    #      }
     
     
 
