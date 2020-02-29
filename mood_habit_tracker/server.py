@@ -104,32 +104,38 @@ def get_comparison_chart_data():
 
     habit_choices = ('Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins')
 
-    # Query mood
-    # Get mood weather_ids
-    # Query weather to get list of time for matching weather_id
-    # Use list of time to compare habits and set true/false
-    
-    # or
+    if x_axis in habit_choices:
 
-    # Join habit and weather - maybe not
-    # query for specific habit but only grab time
-    # use time to compare to mood time to group mood
-    # 
-    # join mood and weather - maybe not
-    # query for specific mood but only grab intensity and time
-    # group intensities by day
-    # Match groups with habit times or lack of times (if/else)
+        habits = Habit.query.filter_by(habit=x_axis).all()
+        habit_times = []
+        for habit in habits:
+            time = habit.weathers.time.replace(hour=0, minute=0, second=0, millisecond=0)
+            habit_times.append(time)
+        habit_times = set(habit_times)
+        
+        moods = Mood.query.filter_by(mood=y_axis).all()
+        habit_true = []
+        habit_false = []
+        for mood in moods:
+            time = mood.weathers.time.replace(hour=0, minute=0, second=0, millisecond=0)
+            if time in habit_times:
+                habit_true.append(mood.intensity)
+            else:
+                habit_false.append(mood.intensity)
 
-    # data:{mood: 
-    #         {true(habit): intensity[1,6,8,9]}
-    #         {false(habit): intensity[8, 0, 5, 10]} 
-    #      }
+        data = {'x_axis': x_axis, 'habit_true': habit_true, 'habit_false': habit_false,
+                'y_axis': y_axis}
+    else:
+
+        weathers = db.session.query(Mood.intensity, Weather.sky_condition).join(Weather).filter_by(mood=y_axis).group_by('sky_condition').all()
+            
+
     
     
 
     time.sleep(1)
 
-    return 'Something'
+    return jsonify(data)
 
 ######################################################################################################################################################
 """Jinja page code"""
