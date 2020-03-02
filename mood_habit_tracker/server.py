@@ -90,7 +90,7 @@ def post_habit_json():
 @app.route('/comparison_form.json', methods=['GET'])
 def get_comparison_choices_json():
 
-    comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather temperature', 'Weather sky condition']
+    comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather sky condition']
 
     time.sleep(1)
 
@@ -100,38 +100,40 @@ def get_comparison_choices_json():
 def get_comparison_chart_data():
 
     x_axis = request.args.get('xAxis')
+    print(x_axis)
     y_axis = request.args.get('yAxis')
 
-    habit_choices = ('Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins')
+    habit_choices = {'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins'}
 
     if x_axis in habit_choices:
 
         habits = Habit.query.filter_by(habit=x_axis).all()
-        habit_times = []
+        habit_times = set()
         for habit in habits:
-            time = habit.weathers.time.replace(hour=0, minute=0, second=0, millisecond=0)
-            habit_times.append(time)
-        habit_times = set(habit_times)
+            habit_time = habit.weathers.time.replace(hour=0, minute=0, second=0)
+            habit_times.add(habit_time)
         
         moods = Mood.query.filter_by(mood=y_axis).all()
         habit_true = []
         habit_false = []
         for mood in moods:
-            time = mood.weathers.time.replace(hour=0, minute=0, second=0, millisecond=0)
-            if time in habit_times:
+            mood_time = mood.weathers.time.replace(hour=0, minute=0, second=0)
+            if mood_time in habit_times:
                 habit_true.append(mood.intensity)
             else:
                 habit_false.append(mood.intensity)
-
-        data = {'x_axis': x_axis, 'habit_true': habit_true, 'habit_false': habit_false,
-                'y_axis': y_axis}
+        avg_habit_true = sum(habit_true)/len(habit_true)
+        avg_habit_false = sum(habit_false)/len(habit_false)
+        data = {'labels':{'habit_true': avg_habit_true, 'habit_false': avg_habit_false}, 'axis': {'y_axis': y_axis, 'x_axis': x_axis}}
     else:
-
-        weathers = db.session.query(Mood.intensity, Weather.sky_condition).join(Weather).filter_by(mood=y_axis).group_by('sky_condition').all()
-            
-
-    
-    
+        
+        moods = db.session.query(Mood.intensity, Weather.sky_condition).join(Mood).filter_by(mood=y_axis).all()
+        data = {'axis': {'x_axis': x_axis, 'y_axis': y_axis}, 'labels':{}}
+        for mood in moods:
+            if data.get(mood.sky_condition) is None:
+                data[labels][mood.sky_condition] = [mood.intensity]
+            else:
+                data[labels][mood.sky_condition].append(mood.intensity)
 
     time.sleep(1)
 

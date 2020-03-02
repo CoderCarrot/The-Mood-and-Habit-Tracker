@@ -3,8 +3,10 @@ class ComparisonForm extends React.Component {
         super(props);
 
         this.state = { Choices: null,
-                       xAxis: 'Motivation',
-                       yAxis: 'Motivation' };
+                       xAxis: 'Drink 20 oz of water',
+                       yAxis: 'Motivation',
+                       hasSubmitted: null,
+                       responseData: null };
         
         this.makeXChoices = this.makeXChoices.bind(this);
         this.makeYChoices = this.makeYChoices.bind(this);
@@ -12,6 +14,7 @@ class ComparisonForm extends React.Component {
         this.handleXAxisChange = this.handleXAxisChange.bind(this);
         this.handleYAxisChange = this.handleYAxisChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
+        this.handleSubmitResponse = this.handleSubmitResponse.bind(this);
     }
 
     updateComparisonForm(res) {
@@ -42,9 +45,17 @@ class ComparisonForm extends React.Component {
         return pullDownChoices
     }
 
+    handleSubmitResponse(res) {
+        this.setState({responseData: res});
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        <ComparisonChart xaxis={this.state.xAxis} yaxis={this.state.yAxis} />
+        this.setState({hasSubmitted: true})
+        const data = {xAxis: this.state.xAxis, yAxis: this.state.yAxis}
+        $.get('/comparison_chart.json', data, this.handleSubmitResponse);
+        console.log('Submit', this);
+        
     //    render compare chart
 
         // refresh page with input data for last month
@@ -85,6 +96,7 @@ class ComparisonForm extends React.Component {
                         <br></br>
                         <input type="submit" value="See Comparison"/>
                     </form>
+                    <ComparisonChart responseData={this.state.responseData} />
                 </div>
             ); 
         }
@@ -98,28 +110,100 @@ ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 class ComparisonChart extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {xAxisRes: null,
+                      yAxisRes: null,
+                      labelsRes: null,
+                      labels: null,
+                      data: null,
+                     };
+
+        this.createChart = this.createChart.bind(this);
+        this.createLabels = this.createLabels.bind(this);
+        this.createData = this.createData.bind(this);
+        this.createChart = this.createChart.bind(this);
+        this.unpackProps = this.unpackProps.bind(this);
+    }
+
+    unpackProps(){
+        console.log('pack', this);
+        this.setState({xAxisRes: this.props.responseData.axis.x_axis});
+        this.setState({yAxisRes: this.props.responseData.axis.y_axis});
+        this.setState({labelsRes: this.props.responseData.labels});
+        console.log('unpack', this);
+    }
+
+    createLabels(){
+        const labels = [];
+        if (this.state.xAxisRes === 'Weather sky condition'){
+            for (const labelRes in this.state.labelsRes){
+                labels.push(labelRes);
+            }
+        }
+        else{
+            labels.push(`Did ${this.state.xAxis}`);
+            labels.push(`Did not ${this.state.xAxis}`);
+        }
+        this.setState({labels: {labels}});
+    }
+
+    createData(){
+        const data = [];
+        for (const label in this.state.labelsRes){
+            data.push(this.state.labelsRes[label]);
+        }
+        this.setState({data: {data}});
     }
 
     createChart() {
-        let comparisonChart = new Chart(document.getElementById('comparison-chart'), {
+        console.log('create');
+        this.unpackProps();
+        this.createData();
+        this.createLabels();
+        let comparisonChart = new Chart(document.getElementById('bar-chart'), {
             type: 'bar',
             data: {
-                labels: []
-                datasets: [{
-                    data: []
-                }]
+                labels: this.state.labels,
+                datasets: [
+                    {
+                        label: 'Intensity of Mood',
+                        backgroundColor: ['#4ac828', '#5628c8', '#284ac8'],
+                        data: this.state.data
+                    }
+                ]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: `${this.state.yAxis} Intensity versis ${this.state.xAxis}`
+                },
+                scales: {
+                    yAxes: [{
+                      ticks: {
+                        min: 0,
+                        max: 10
+                      }
+                    }]
+                }
             }
         });
-    }
+        }
 
-    data = {xAxis = this.props.xaxis, yAxis = this.props.yaxis}
-
-    $.get('/comparison_chart_data.json', data, this.createChart);
-
-    
 
     render() {
-        null
+        if (this.state.data){
+            return (
+                <div>
+                    <canvas id="bar-chart" width="800" height="450"></canvas>
+                    <script>{this.createChart()}</script>
+                </div>
+            );
+        }
+        else{
+            return null
+        }
+        
     }
 }
 
