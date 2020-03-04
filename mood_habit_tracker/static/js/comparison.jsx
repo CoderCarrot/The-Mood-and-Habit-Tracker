@@ -123,11 +123,11 @@ class ComparisonChart extends React.Component {
     chartRef = React.createRef();
 
     createData(){
-        const data = [];
-        for (const label in this.props.responseData.labels){
-            data.push(this.props.responseData.labels.label);
+        const chartData = [];
+        for (let label in this.props.responseData.labels){
+            chartData.push(this.props.responseData.labels[label]);
         }
-        this.setState({data: {data}});
+        this.setState({data: chartData});
         console.log('data', this)
     }
 
