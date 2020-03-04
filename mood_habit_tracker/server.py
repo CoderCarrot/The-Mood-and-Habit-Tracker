@@ -131,9 +131,9 @@ def get_comparison_chart_data():
         data = {'axis': {'x_axis': x_axis, 'y_axis': y_axis}, 'labels':{}}
         for mood in moods:
             if data.get(mood.sky_condition) is None:
-                data[labels][mood.sky_condition] = [mood.intensity]
+                data['labels'][mood.sky_condition] = [mood.intensity]
             else:
-                data[labels][mood.sky_condition].append(mood.intensity)
+                data['labels'][mood.sky_condition].append(mood.intensity)
 
     time.sleep(1)
 

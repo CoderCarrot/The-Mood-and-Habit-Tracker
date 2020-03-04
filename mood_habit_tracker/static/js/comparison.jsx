@@ -5,7 +5,6 @@ class ComparisonForm extends React.Component {
         this.state = { Choices: null,
                        xAxis: 'Drink 20 oz of water',
                        yAxis: 'Motivation',
-                       hasSubmitted: null,
                        responseData: null };
         
         this.makeXChoices = this.makeXChoices.bind(this);
@@ -47,18 +46,14 @@ class ComparisonForm extends React.Component {
 
     handleSubmitResponse(res) {
         this.setState({responseData: res});
+        console.log('response', this.state.responseData)
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.setState({hasSubmitted: true})
         const data = {xAxis: this.state.xAxis, yAxis: this.state.yAxis}
         $.get('/comparison_chart.json', data, this.handleSubmitResponse);
         console.log('Submit', this);
-        
-    //    render compare chart
-
-        // refresh page with input data for last month
     }
 
     handleXAxisChange(event) {
@@ -125,6 +120,33 @@ class ComparisonChart extends React.Component {
         this.unpackProps = this.unpackProps.bind(this);
     }
 
+    chartRef = React.createRef();
+
+    createData(){
+        const data = [];
+        for (const label in this.props.responseData.labels){
+            data.push(this.props.responseData.labels.label);
+        }
+        this.setState({data: {data}});
+        console.log('data', this)
+    }
+
+    createLabels(){
+        const chartLabels = [];
+        if (this.props.responseData.axis.x_axis === 'Weather sky condition'){
+            for (const labelRes in this.props.responseData.labels){
+                chartLabels.push(labelRes);
+            }
+        }
+        else{
+            chartLabels.push(`Did ${this.props.responseData.axis.x_axis}`);
+            chartLabels.push(`Did not ${this.props.responseData.axis.x_axis}`);
+        }
+        this.setState({labels: chartLabels});
+        console.log('labels', this)
+        
+    }
+
     unpackProps(){
         console.log('pack', this);
         this.setState({xAxisRes: this.props.responseData.axis.x_axis});
@@ -133,34 +155,19 @@ class ComparisonChart extends React.Component {
         console.log('unpack', this);
     }
 
-    createLabels(){
-        const labels = [];
-        if (this.state.xAxisRes === 'Weather sky condition'){
-            for (const labelRes in this.state.labelsRes){
-                labels.push(labelRes);
-            }
-        }
-        else{
-            labels.push(`Did ${this.state.xAxis}`);
-            labels.push(`Did not ${this.state.xAxis}`);
-        }
-        this.setState({labels: {labels}});
+
+    componentDidUpdate(prevProps){
+        if (this.props.responseData !== prevProps.responseData){
+            this.unpackProps();
+            this.createLabels();
+            this.createData();
+        }   
     }
 
-    createData(){
-        const data = [];
-        for (const label in this.state.labelsRes){
-            data.push(this.state.labelsRes[label]);
-        }
-        this.setState({data: {data}});
-    }
 
     createChart() {
         console.log('create');
-        this.unpackProps();
-        this.createData();
-        this.createLabels();
-        let comparisonChart = new Chart(document.getElementById('bar-chart'), {
+        new Chart(this.chartRef.current.getContext('2d'), {
             type: 'bar',
             data: {
                 labels: this.state.labels,
@@ -195,8 +202,7 @@ class ComparisonChart extends React.Component {
         if (this.state.data){
             return (
                 <div>
-                    <canvas id="bar-chart" width="800" height="450"></canvas>
-                    <script>{this.createChart()}</script>
+                    <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
                 </div>
             );
         }
@@ -204,18 +210,5 @@ class ComparisonChart extends React.Component {
             return null
         }
         
-    }
-}
-
-class ComparePage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        null
-// conditional: render form. if handleSubmit has happened, render chart
-        // or... default comparison based on default state and refresh page after submit
-        // separate components? Chart and form component? render separetely on compare page/component?
     }
 }
