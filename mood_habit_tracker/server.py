@@ -132,7 +132,7 @@ def get_comparison_chart_data():
         # average mood intensity data because the chart won't do what I want
         avg_habit_true = sum(habit_true)/len(habit_true)
         avg_habit_false = sum(habit_false)/len(habit_false)
-        chart_data = {'data': [avg_habit_true, avg_habit_false], 'labels': [f'Did {x_axis}', f'Did not {y_axis}'], 'y_axis': y_axis}
+        chart_data = {'data': [avg_habit_true, avg_habit_false], 'labels': [f'Did {x_axis}', f'Did not {x_axis}'], 'y_axis': y_axis}
     else:
         
         moods = db.session.query(Mood.intensity, Weather.sky_condition).join(Mood).filter_by(mood=y_axis).all()

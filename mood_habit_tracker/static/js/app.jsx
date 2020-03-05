@@ -1,4 +1,7 @@
 const Router = ReactRouterDOM.BrowserRouter;
+const Switch = ReactRouterDOM.Switch;
+const Link = ReactRouterDOM.Link;
+const Route = ReactRouterDOM.Route;
 class App extends React.Component {
     constructor(){
         super();
@@ -9,17 +12,25 @@ class App extends React.Component {
     render(){
         return(
             <Router>
-                <ReactRouterDOM.Link to='/enter-habit'><button name='habit'>Habit</button></ReactRouterDOM.Link>
-                <ReactRouterDOM.Switch>
-                    <ReactRouterDOM.Route path='/' exact={true}>
+                <Link to='/'><button name='home'>Homepage</button></Link>
+                <Link to='/enter-habit'><button name='habit'>Habit Entry</button></Link>
+                <Link to='/enter-mood'><button name='mood'>Mood Entry</button></Link>
+                <Link to='/compare'><button name='compare'>Comparison Page</button></Link>
+
+                <Switch>
+                    <Route path='/'exact={true}>
                         <Homepage />
-                    </ReactRouterDOM.Route>
-                    <ReactRouterDOM.Route path='/enter-habit'>
+                    </Route>
+                    <Route path='/enter-habit' exact={true}>
                         <HabitForm />
-                    </ReactRouterDOM.Route>
-                    <ReactRouterDOM.Route path='/enter-mood' component={MoodForm} />
-                    <ReactRouterDOM.Route path='/compare' component={ComparisonForm} />
-                </ReactRouterDOM.Switch>
+                    </Route>
+                    <Route path='/enter-mood' exact={true}>
+                        <MoodForm />
+                    </Route>
+                    <Route path='/compare' exact={true}>
+                        <ComparisonForm/>
+                    </Route>
+                </Switch>
             </Router>
         );
     }
