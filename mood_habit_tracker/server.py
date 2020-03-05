@@ -136,13 +136,20 @@ def get_comparison_chart_data():
     else:
         
         moods = db.session.query(Mood.intensity, Weather.sky_condition).join(Mood).filter_by(mood=y_axis).all()
-        chart_data = {'y_axis': y_axis, 'labels':{}}
+        chart_data = {'y_axis': y_axis}
         # create a dictionary of sky_conditions based on weather/mood results
         for mood in moods:
             if chart_data.get(mood.sky_condition) is None:
-                chart_data['labels'][mood.sky_condition] = [mood.intensity]
+                chart_data['labels'] = [mood.sky_condition]
+                chart_data['data'][mood.sky_condition] = [mood.intensity] 
             else:
-                chart_data['labels'][mood.sky_condition].append(mood.intensity)
+                chart_data['labels'].append(mood.sky_condition)
+                chart_data['data'][mood.sky_condition].append(mood.intensity)
+        avg_cond = []
+        for condition in chart_data['labels']:
+            avg = sum(chart_data['data'][condition])/len(chart_data['data'][condition])
+            avg_cond.append(avg)
+        chart_data['data'] = avg_cond
         
 
     time.sleep(1)
