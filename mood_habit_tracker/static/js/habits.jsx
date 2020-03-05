@@ -92,4 +92,4 @@ class HabitForm extends React.Component {
     }
 }
 
-ReactDOM.render(<HabitForm />, document.getElementById('habit-form'));
+// ReactDOM.render(<HabitForm />, document.getElementById('habit-form'));

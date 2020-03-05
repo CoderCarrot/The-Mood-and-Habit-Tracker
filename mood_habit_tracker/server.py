@@ -107,37 +107,47 @@ def get_comparison_chart_data():
 
     if x_axis in habit_choices:
 
+        # query Habit based on the x-axis provided if it's a habit
         habits = Habit.query.filter_by(habit=x_axis).all()
+        # instantiate a set to add to later
         habit_times = set()
+        # loop through query results to change timestamp to just date and add to set
         for habit in habits:
             habit_time = habit.weathers.time.replace(hour=0, minute=0, second=0)
             habit_times.add(habit_time)
         
+        # query moods based on the y-axis provided
         moods = Mood.query.filter_by(mood=y_axis).all()
+        # instantiate 2 lists for days the habit was performed and days it wasn't
         habit_true = []
         habit_false = []
+        # loop through moods to change timestamp to just date
         for mood in moods:
             mood_time = mood.weathers.time.replace(hour=0, minute=0, second=0)
+            # compare mood date to habit date to sort mood intensity into days habit was and wasn't performed
             if mood_time in habit_times:
                 habit_true.append(mood.intensity)
             else:
                 habit_false.append(mood.intensity)
+        # average mood intensity data because the chart won't do what I want
         avg_habit_true = sum(habit_true)/len(habit_true)
         avg_habit_false = sum(habit_false)/len(habit_false)
-        data = {'labels':{'habit_true': avg_habit_true, 'habit_false': avg_habit_false}, 'axis': {'y_axis': y_axis, 'x_axis': x_axis}}
+        chart_data = {'data': [avg_habit_true, avg_habit_false], 'labels': [f'Did {x_axis}', f'Did not {y_axis}'], 'y_axis': y_axis}
     else:
         
         moods = db.session.query(Mood.intensity, Weather.sky_condition).join(Mood).filter_by(mood=y_axis).all()
-        data = {'axis': {'x_axis': x_axis, 'y_axis': y_axis}, 'labels':{}}
+        chart_data = {'y_axis': y_axis, 'labels':{}}
+        # create a dictionary of sky_conditions based on weather/mood results
         for mood in moods:
-            if data.get(mood.sky_condition) is None:
-                data['labels'][mood.sky_condition] = [mood.intensity]
+            if chart_data.get(mood.sky_condition) is None:
+                chart_data['labels'][mood.sky_condition] = [mood.intensity]
             else:
-                data['labels'][mood.sky_condition].append(mood.intensity)
+                chart_data['labels'][mood.sky_condition].append(mood.intensity)
+        
 
     time.sleep(1)
 
-    return jsonify(data)
+    return jsonify(chart_data)
 
 ######################################################################################################################################################
 """Jinja page code"""

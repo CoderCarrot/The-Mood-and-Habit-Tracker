@@ -100,7 +100,7 @@ class ComparisonForm extends React.Component {
     }
 }
 
-ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
+// ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 
 class ComparisonChart extends React.Component {
     constructor(props) {

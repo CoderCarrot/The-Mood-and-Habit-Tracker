@@ -115,4 +115,4 @@ class MoodForm extends React.Component {
     }
 }
 
-ReactDOM.render(<MoodForm />, document.getElementById('mood-form'));
+// ReactDOM.render(<MoodForm />, document.getElementById('mood-form'));

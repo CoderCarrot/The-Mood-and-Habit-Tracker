@@ -8,4 +8,4 @@ class Homepage extends React.Component {
     }
 }
 
-ReactDOM.render(<Homepage />, document.getElementById('homepage'));
+// ReactDOM.render(<Homepage />, document.getElementById('homepage'));
