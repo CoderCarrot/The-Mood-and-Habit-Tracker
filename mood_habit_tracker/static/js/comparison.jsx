@@ -46,6 +46,7 @@ class ComparisonForm extends React.Component {
 
     handleSubmitResponse(res) {
         this.setState({responseData: res});
+        this.setState({ xAxis: 'Drink 20 oz of water', yAxis: 'Motivation'})
         console.log('response', this.state.responseData)
     }
 
@@ -114,53 +115,42 @@ class ComparisonChart extends React.Component {
                      };
 
         this.createChart = this.createChart.bind(this);
-        this.createLabels = this.createLabels.bind(this);
-        this.createData = this.createData.bind(this);
-        this.createChart = this.createChart.bind(this);
-        this.unpackProps = this.unpackProps.bind(this);
+        // this.createLabels = this.createLabels.bind(this);
+        // this.createData = this.createData.bind(this);
+        // this.unpackProps = this.unpackProps.bind(this);
     }
 
     chartRef = React.createRef();
 
-    createData(){
-        const chartData = [];
-        for (let label in this.props.responseData.labels){
-            chartData.push(this.props.responseData.labels[label]);
-        }
-        this.setState({data: chartData});
-        console.log('data', this)
-    }
+    // createData(){
+    //     const chartData = [];
+    //     for (let label in this.props.responseData.labels){
+    //         chartData.push(this.props.responseData.labels[label]);
+    //     }
+    //     this.setState({data: chartData});
+    //     console.log('data', this)
+    // }
 
-    createLabels(){
-        const chartLabels = [];
-        if (this.props.responseData.axis.x_axis === 'Weather sky condition'){
-            for (const labelRes in this.props.responseData.labels){
-                chartLabels.push(labelRes);
-            }
-        }
-        else{
-            chartLabels.push(`Did ${this.props.responseData.axis.x_axis}`);
-            chartLabels.push(`Did not ${this.props.responseData.axis.x_axis}`);
-        }
-        this.setState({labels: chartLabels});
-        console.log('labels', this)
+    // createLabels(){
+    //     const chartLabels = [];
+    //     if (this.props.responseData.axis.x_axis === 'Weather sky condition'){
+    //         for (const labelRes in this.props.responseData.labels){
+    //             chartLabels.push(labelRes);
+    //         }
+    //     }
+    //     else{
+    //         chartLabels.push(`Did ${this.props.responseData.axis.x_axis}`);
+    //         chartLabels.push(`Did not ${this.props.responseData.axis.x_axis}`);
+    //     }
+    //     this.setState({labels: chartLabels});
+    //     console.log('labels', this)
         
-    }
-
-    unpackProps(){
-        console.log('pack', this);
-        this.setState({xAxisRes: this.props.responseData.axis.x_axis});
-        this.setState({yAxisRes: this.props.responseData.axis.y_axis});
-        this.setState({labelsRes: this.props.responseData.labels});
-        console.log('unpack', this);
-    }
+    // }
 
 
     componentDidUpdate(prevProps){
         if (this.props.responseData !== prevProps.responseData){
-            this.unpackProps();
-            this.createLabels();
-            this.createData();
+            this.createChart()
         }   
     }
 
@@ -170,12 +160,12 @@ class ComparisonChart extends React.Component {
         new Chart(this.chartRef.current.getContext('2d'), {
             type: 'bar',
             data: {
-                labels: this.state.labels,
+                labels: this.props.responseData.labels,
                 datasets: [
                     {
-                        label: 'Intensity of Mood',
+                        label: `Intensity of ${this.props.responseData.y_axis}`,
                         backgroundColor: ['#4ac828', '#5628c8', '#284ac8'],
-                        data: this.state.data
+                        data: this.props.responseData.data
                     }
                 ]
             },
@@ -183,7 +173,7 @@ class ComparisonChart extends React.Component {
                 legend: {display: false},
                 title: {
                     display: true,
-                    text: `${this.state.yAxis} Intensity versis ${this.state.xAxis}`
+                    text: `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`
                 },
                 scales: {
                     yAxes: [{
