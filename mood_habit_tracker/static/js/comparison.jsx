@@ -5,7 +5,9 @@ class ComparisonForm extends React.Component {
         this.state = { Choices: null,
                        xAxis: 'Drink 20 oz of water',
                        yAxis: 'Motivation',
-                       responseData: null };
+                       responseData: null,
+                       didSubmit: false 
+                    };
         
         this.makeXChoices = this.makeXChoices.bind(this);
         this.makeYChoices = this.makeYChoices.bind(this);
@@ -46,7 +48,9 @@ class ComparisonForm extends React.Component {
 
     handleSubmitResponse(res) {
         this.setState({responseData: res});
+        this.setState({ didSubmit: true})
         this.setState({ xAxis: 'Drink 20 oz of water', yAxis: 'Motivation'})
+
         console.log('response', this.state.responseData)
     }
 
@@ -92,7 +96,7 @@ class ComparisonForm extends React.Component {
                         <br></br>
                         <input type="submit" value="See Comparison"/>
                     </form>
-                    <ComparisonChart responseData={this.state.responseData} />
+                    <ComparisonChart responseData={this.state.responseData} didSubmit={this.state.didSubmit}/>
                 </div>
             ); 
         }
@@ -115,12 +119,13 @@ class ComparisonChart extends React.Component {
                      };
 
         this.createChart = this.createChart.bind(this);
+        this.chartRef = React.createRef();
         // this.createLabels = this.createLabels.bind(this);
         // this.createData = this.createData.bind(this);
         // this.unpackProps = this.unpackProps.bind(this);
     }
 
-    chartRef = React.createRef();
+    
 
     // createData(){
     //     const chartData = [];
@@ -147,9 +152,11 @@ class ComparisonChart extends React.Component {
         
     // }
 
+    
 
     componentDidUpdate(prevProps){
         if (this.props.responseData !== prevProps.responseData){
+            console.log('update', this);
             this.createChart()
         }   
     }
@@ -189,7 +196,7 @@ class ComparisonChart extends React.Component {
 
 
     render() {
-        if (this.state.data){
+        if (this.props.didSubmit){
             return (
                 <div>
                     <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
