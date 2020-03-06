@@ -47,8 +47,8 @@ class ComparisonForm extends React.Component {
     }
 
     handleSubmitResponse(res) {
-        this.setState({responseData: res});
-        this.setState({ didSubmit: true})
+        this.setState({ responseData: res });
+        this.setState({ didSubmit: true })
     }
 
     handleSubmit(event) {
@@ -111,54 +111,68 @@ class ComparisonChart extends React.Component {
 
         this.chartRef = React.createRef();
 
-        this.state = {};
+        this.state = {chart: false};
 
         this.createChart = this.createChart.bind(this);
+        // this.updateChart = this.updateChart.bind(this);
     }
     
 
     componentDidUpdate(prevProps){
-        if (this.chartRef.current !== null && this.props.responseData !== prevProps.responseData){
-            this.createChart()
+        if (this.chartRef.current !== null && this.state.chart === false){
+            this.createChart();
+        }
+        if (this.state.chart === true){
+            this.updateChart();
         }   
     }
 
 
     createChart() {
-
-        new Chart(this.chartRef.current.getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: this.props.responseData.labels,
-                datasets: [
-                    {
-                        label: `Intensity of ${this.props.responseData.y_axis}`,
-                        backgroundColor: ['#4ac828', '#5628c8', '#284ac8'],
-                        data: this.props.responseData.data
-                    }
-                ]
-            },
-            options: {
-                legend: {display: false},
-                title: {
-                    display: true,
-                    text: `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`
+        this.setState({chart: true})
+        let ctx = document.getElementById('bar-chart');
+        if (ctx) {
+            this.barChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: this.props.responseData.labels,
+                    datasets: [
+                        {
+                            label: `Intensity of ${this.props.responseData.y_axis}`,
+                            backgroundColor: ['#4ac828', '#5628c8', '#284ac8'],
+                            data: this.props.responseData.data
+                        }
+                    ]
                 },
-                scales: {
-                    yAxes: [{
-                      ticks: {
-                        min: 0,
-                        max: 10
-                      }
-                    }]
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`
+                    },
+                    scales: {
+                        yAxes: [{
+                          ticks: {
+                            min: 0,
+                            max: 10
+                          }
+                        }]
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
+    updateChart(){
+        this.barChart.data.labels = this.props.responseData.labels;
+        this.barChart.data.datasets[0].label = `Intensity of ${this.props.responseData.y_axis}`;
+        this.barChart.data.datasets[0].data = this.props.responseData.data;
+        this.barChart.options.title.text = `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`;
+        this.barChart.update();
+    }
 
     render() { 
-
+        
         return (
             <div>
                 <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
