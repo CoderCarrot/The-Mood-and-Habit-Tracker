@@ -49,16 +49,12 @@ class ComparisonForm extends React.Component {
     handleSubmitResponse(res) {
         this.setState({responseData: res});
         this.setState({ didSubmit: true})
-        this.setState({ xAxis: 'Drink 20 oz of water', yAxis: 'Motivation'})
-
-        console.log('response', this.state.responseData)
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const data = {xAxis: this.state.xAxis, yAxis: this.state.yAxis}
         $.get('/comparison_chart.json', data, this.handleSubmitResponse);
-        console.log('Submit', this);
     }
 
     handleXAxisChange(event) {
@@ -108,62 +104,28 @@ class ComparisonForm extends React.Component {
 // ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 
 class ComparisonChart extends React.Component {
+
     constructor(props) {
+
         super(props);
 
-        this.state = {xAxisRes: null,
-                      yAxisRes: null,
-                      labelsRes: null,
-                      labels: null,
-                      data: null,
-                     };
+        this.chartRef = React.createRef();
+
+        this.state = {};
 
         this.createChart = this.createChart.bind(this);
-        this.chartRef = React.createRef();
-        // this.createLabels = this.createLabels.bind(this);
-        // this.createData = this.createData.bind(this);
-        // this.unpackProps = this.unpackProps.bind(this);
     }
-
-    
-
-    // createData(){
-    //     const chartData = [];
-    //     for (let label in this.props.responseData.labels){
-    //         chartData.push(this.props.responseData.labels[label]);
-    //     }
-    //     this.setState({data: chartData});
-    //     console.log('data', this)
-    // }
-
-    // createLabels(){
-    //     const chartLabels = [];
-    //     if (this.props.responseData.axis.x_axis === 'Weather sky condition'){
-    //         for (const labelRes in this.props.responseData.labels){
-    //             chartLabels.push(labelRes);
-    //         }
-    //     }
-    //     else{
-    //         chartLabels.push(`Did ${this.props.responseData.axis.x_axis}`);
-    //         chartLabels.push(`Did not ${this.props.responseData.axis.x_axis}`);
-    //     }
-    //     this.setState({labels: chartLabels});
-    //     console.log('labels', this)
-        
-    // }
-
     
 
     componentDidUpdate(prevProps){
-        if (this.props.responseData !== prevProps.responseData){
-            console.log('update', this);
+        if (this.chartRef.current !== null && this.props.responseData !== prevProps.responseData){
             this.createChart()
         }   
     }
 
 
     createChart() {
-        console.log('create');
+
         new Chart(this.chartRef.current.getContext('2d'), {
             type: 'bar',
             data: {
@@ -192,20 +154,17 @@ class ComparisonChart extends React.Component {
                 }
             }
         });
-        }
+    }
 
 
-    render() {
-        if (this.props.didSubmit){
-            return (
-                <div>
-                    <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
-                </div>
-            );
-        }
-        else{
-            return null
-        }
+    render() { 
+
+        return (
+            <div>
+                <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
+            </div>
+        );
+
         
     }
 }
