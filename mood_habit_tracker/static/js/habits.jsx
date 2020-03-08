@@ -68,27 +68,32 @@ class HabitForm extends React.Component {
         if (this.state.choices) {
             return (
                 <div>
+                    <h1>Enter Habit Here</h1>
                     <form onSubmit={this.handleSubmit}>
+                        <div class="form-group">
                         <label>
                             Habit:
                             <br></br>
-                            <select habit={this.state.habit} onChange={this.handleHabitChange}>
+                            <select habit={this.state.habit} onChange={this.handleHabitChange} class="form-control">
                                 {this.makeHabitChoices()}
                             </select>
                         </label>
-                        <br></br>
+                        </div>
+                        <div class="form-group">
                         <label>
                             Zipcode:
                             <br></br>
-                            <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
+                            <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} class="form-control"/>
                         </label>
-                        <br></br>
-                        <input type="submit" value="Submit Habit" />
+                        </div>
+                        <input type="submit" value="Submit Habit" class="btn btn-dark"/>
                     </form>
                 </div>
             ); 
         }
-        return <div>Loading...</div>
+        return (<div class="spinner-border text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>)
     }
 }
 

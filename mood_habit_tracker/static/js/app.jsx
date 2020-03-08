@@ -12,11 +12,27 @@ class App extends React.Component {
     render(){
         return(
             <Router>
-                <Link to='/'><button name='home'>Homepage</button></Link>
-                <Link to='/enter-habit'><button name='habit'>Habit Entry</button></Link>
-                <Link to='/enter-mood'><button name='mood'>Mood Entry</button></Link>
-                <Link to='/compare'><button name='compare'>Comparison Page</button></Link>
-
+                <nav class="navbar navbar-expand-lg navbar-light bg-success">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <Link to='/' class="nav-link"><button name='home'>Homepage</button></Link>
+                            </li>
+                            <li class="nav-item active">
+                                <Link to='/enter-habit' class="nav-link"><button name='habit'>Habit Entry</button></Link>
+                            </li>
+                            <li class="nav-item active">
+                                <Link to='/enter-mood' class="nav-link"><button name='mood'>Mood Entry</button></Link>
+                            </li>
+                            <li class="nav-item active">
+                                <Link to='/compare' class="nav-link"><button name='compare'>Comparison Page</button></Link>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
                 <Switch>
                     <Route path='/'exact={true}>
                         <Homepage />
