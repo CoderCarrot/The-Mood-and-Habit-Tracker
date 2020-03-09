@@ -1,9 +1,11 @@
 class Homepage extends React.Component {
     render() {
         return(
-            <div>
+            
+            <div id="homepage" class="justify-content-center">
                 <h1>Welcome to your Mood/Habit Tracker</h1>
             </div>
+            
         );
     }
 }
