@@ -82,8 +82,8 @@ class MoodForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-                    <h1>Enter Mood Here</h1>
+                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
+                    <h2>Enter Mood Here</h2>
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Mood:
