@@ -1,0 +1,77 @@
+#homepage {
+    background: url('/static/img/homepage.jpg') center center no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+
+}
+
+#form {
+    background-image: url('/static/img/geometric-leaves-lightest.png');
+    background-repeat: repeat;
+    background-size: 150px;
+}
+
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #535353;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+h1 {
+    font-family: 'Mali', cursive;
+    font-weight: bold;
+    font-size: 500%;
+}
+
+h2 {
+    font-family: 'Bellota', cursive;
+    font-size: 300%;
+}
+
+label, input {
+    font-family: 'Bellota', cursive;
+    font-weight: bold;
+    font-size: 200%;
+    /* background-color: #535353; */
+}
+
+button {
+    font-family: 'Bellota', cursive;
+    font-size: 100%;
+    background-color: #88d317;
+    display: flex; 
+    justify-content: center;
+}
+
+nav {
+    background-color: #6e3667;
+    display: inline-block;
+    justify-content: center;
+}
+
+.navbar .navbar-nav {
+    display: inline-flex;
+    float: none;
+    vertical-align: top;
+    text-align: center;
+  }
+  
+.navbar .navbar-collapse {
+    text-align: center;
+  }
+
+.spinner-border {
+    margin-left: 50%;
+    margin-top: 25%;
+}
