@@ -82,41 +82,41 @@ class MoodForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Enter Mood Here</h2>
                     <form onSubmit={this.handleSubmit}>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Mood:
                                 <br></br>
-                                <select class="form-control" mood={this.state.mood} onChange={this.handleMoodChange}>
+                                <select className="form-control" mood={this.state.mood} onChange={this.handleMoodChange}>
                                     {this.makeMoodChoices()}
                                 </select>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Intensity:
                                 <br></br>
-                                <select class="form-control" intensity={this.state.intensity} onChange={this.handleIntensityChange}>
+                                <select className="form-control" intensity={this.state.intensity} onChange={this.handleIntensityChange}>
                                     {this.makeIntensityChoices()}
                                 </select>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Zipcode:
                                 <br></br>
-                                <input class="form-control" type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
+                                <input className="form-control" type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
                             </label>
                         </div>
-                        <input type="submit" value="Submit Mood"  class="btn btn-dark"/>
+                        <input type="submit" value="Submit Mood"  className="btn btn-dark"/>
                     </form>
                 </div>
             ); 
         }
-        return (<div class="spinner-border text-success" role="status">
-                    <span class="sr-only">Loading...</span>
+        return (<div className="spinner-border text-success" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>)
     }
 }

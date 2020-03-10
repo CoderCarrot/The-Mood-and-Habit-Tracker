@@ -72,35 +72,35 @@ class ComparisonForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Choose Axis Here</h2>
                     <form onSubmit={this.handleSubmit}>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 X-Axis:
                                 <br></br>
-                                <select class="form-control" xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
+                                <select className="form-control" xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
                                     {this.makeXChoices()}
                                 </select>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Y-Axis:
                                 <br></br>
-                                <select class="form-control" yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
+                                <select className="form-control" yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
                                     {this.makeYChoices()}
                                 </select>
                             </label>
                         </div>
-                        <input type="submit" value="See Comparison" class="btn btn-dark"/>
+                        <input type="submit" value="See Comparison" className="btn btn-dark"/>
                     </form>
                     <ComparisonChart responseData={this.state.responseData} didSubmit={this.state.didSubmit}/>
                 </div>
             ); 
         }
-        return (<div class="spinner-border text-success" role="status">
-                    <span class="sr-only">Loading...</span>
+        return (<div className="spinner-border text-success" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>)
 
     }
