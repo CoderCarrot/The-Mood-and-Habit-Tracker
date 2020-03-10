@@ -65,6 +65,7 @@ nav {
     float: none;
     vertical-align: top;
     text-align: center;
+    margin: auto;
   }
   
 .navbar .navbar-collapse {
