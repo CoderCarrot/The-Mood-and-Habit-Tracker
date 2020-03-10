@@ -67,32 +67,32 @@ class HabitForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Enter Habit Here</h2>
                     <form onSubmit={this.handleSubmit}>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Habit:
                                 <br></br>
-                                <select habit={this.state.habit} onChange={this.handleHabitChange} class="form-control">
+                                <select habit={this.state.habit} onChange={this.handleHabitChange} className="form-control">
                                     {this.makeHabitChoices()}
                                 </select>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>
                                 Zipcode:
                                 <br></br>
-                                <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} class="form-control"/>
+                                <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} className="form-control"/>
                             </label>
                         </div>
-                        <input type="submit" value="Submit Habit" class="btn btn-dark"/>
+                        <input type="submit" value="Submit Habit" className="btn btn-dark"/>
                     </form>
                 </div>
             ); 
         }
-        return (<div class="spinner-border text-success" role="status">
-                    <span class="sr-only">Loading...</span>
+        return (<div className="spinner-border text-success" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>)
     }
 }

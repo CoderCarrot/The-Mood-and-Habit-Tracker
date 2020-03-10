@@ -12,23 +12,23 @@ class App extends React.Component {
     render(){
         return(
             <Router>
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-light">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
-                            <li class="nav-item active">
-                                <Link to='/' class="nav-link"><button name='home'>Homepage</button></Link>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
+                            <li className="nav-item active">
+                                <Link to='/' className="nav-link"><button name='home'>Homepage</button></Link>
                             </li>
-                            <li class="nav-item active">
-                                <Link to='/enter-habit' class="nav-link"><button name='habit'>Habit Entry</button></Link>
+                            <li className="nav-item active">
+                                <Link to='/enter-habit' className="nav-link"><button name='habit'>Habit Entry</button></Link>
                             </li>
-                            <li class="nav-item active">
-                                <Link to='/enter-mood' class="nav-link"><button name='mood'>Mood Entry</button></Link>
+                            <li className="nav-item active">
+                                <Link to='/enter-mood' className="nav-link"><button name='mood'>Mood Entry</button></Link>
                             </li>
-                            <li class="nav-item active">
-                                <Link to='/compare' class="nav-link"><button name='compare'>Comparison Page</button></Link>
+                            <li className="nav-item active">
+                                <Link to='/compare' className="nav-link"><button name='compare'>Comparison Page</button></Link>
                             </li>
                         </ul>
                     </div>

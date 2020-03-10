@@ -1,13 +1,13 @@
-#homepage {
-    background: url('/static/img/homepage.jpg') center center no-repeat;
+html {
+    background: url('/static/img/homepage.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
 
+body{
+    background-color: transparent;
 }
 
 #form {
@@ -65,6 +65,7 @@ nav {
     float: none;
     vertical-align: top;
     text-align: center;
+    margin: auto;
   }
   
 .navbar .navbar-collapse {
