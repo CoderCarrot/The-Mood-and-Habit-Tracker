@@ -1,5 +1,5 @@
 html {
-    background: url('/static/img/homepage.jpg') no-repeat center center fixed;
+    background: url('/static/img/homepage.jpg') no-repeat fixed;
     background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
@@ -11,7 +11,7 @@ body{
 }
 
 #form {
-    background-image: url('/static/img/geometric-leaves-lightest.png');
+    /* background-image: url('/static/img/geometric-leaves-lightest.png'); */
     background-repeat: repeat;
     background-size: 150px;
 }
@@ -23,7 +23,7 @@ form:before {
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: #535353;
+    /* background-color: #535353; */
     z-index: -1;
     border-radius: 10px;
 }
