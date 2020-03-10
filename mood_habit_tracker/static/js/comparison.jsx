@@ -75,23 +75,25 @@ class ComparisonForm extends React.Component {
                 <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Choose Axis Here</h2>
                     <form onSubmit={this.handleSubmit}>
-                        <label>
-                            X-Axis:
-                            <br></br>
-                            <select xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
-                                {this.makeXChoices()}
-                            </select>
-                        </label>
-                        <br></br>
-                        <label>
-                            Y-Axis:
-                            <br></br>
-                            <select yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
-                                {this.makeYChoices()}
-                            </select>
-                        </label>
-                        <br></br>
-                        <input type="submit" value="See Comparison"/>
+                        <div class="form-group">
+                            <label>
+                                X-Axis:
+                                <br></br>
+                                <select class="form-control" xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
+                                    {this.makeXChoices()}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Y-Axis:
+                                <br></br>
+                                <select class="form-control" yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
+                                    {this.makeYChoices()}
+                                </select>
+                            </label>
+                        </div>
+                        <input type="submit" value="See Comparison" class="btn btn-dark"/>
                     </form>
                     <ComparisonChart responseData={this.state.responseData} didSubmit={this.state.didSubmit}/>
                 </div>

@@ -85,29 +85,32 @@ class MoodForm extends React.Component {
                 <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Enter Mood Here</h2>
                     <form onSubmit={this.handleSubmit}>
-                        <label>
-                            Mood:
-                            <br></br>
-                            <select mood={this.state.mood} onChange={this.handleMoodChange}>
-                                {this.makeMoodChoices()}
-                            </select>
-                        </label>
-                        <br></br>
-                        <label>
-                            Intensity:
-                            <br></br>
-                            <select intensity={this.state.intensity} onChange={this.handleIntensityChange}>
-                                {this.makeIntensityChoices()}
-                            </select>
-                        </label>
-                        <br></br>
-                        <label>
-                            Zipcode:
-                            <br></br>
-                            <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
-                        </label>
-                        <br></br>
-                        <input type="submit" value="Submit Mood"/>
+                        <div class="form-group">
+                            <label>
+                                Mood:
+                                <br></br>
+                                <select class="form-control" mood={this.state.mood} onChange={this.handleMoodChange}>
+                                    {this.makeMoodChoices()}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Intensity:
+                                <br></br>
+                                <select class="form-control" intensity={this.state.intensity} onChange={this.handleIntensityChange}>
+                                    {this.makeIntensityChoices()}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Zipcode:
+                                <br></br>
+                                <input class="form-control" type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
+                            </label>
+                        </div>
+                        <input type="submit" value="Submit Mood"  class="btn btn-dark"/>
                     </form>
                 </div>
             ); 

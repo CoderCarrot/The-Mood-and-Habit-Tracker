@@ -17,7 +17,7 @@ class App extends React.Component {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
                             <li class="nav-item active">
                                 <Link to='/' class="nav-link"><button name='home'>Homepage</button></Link>
                             </li>

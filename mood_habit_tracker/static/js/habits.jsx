@@ -71,20 +71,20 @@ class HabitForm extends React.Component {
                     <h2>Enter Habit Here</h2>
                     <form onSubmit={this.handleSubmit}>
                         <div class="form-group">
-                        <label>
-                            Habit:
-                            <br></br>
-                            <select habit={this.state.habit} onChange={this.handleHabitChange} class="form-control">
-                                {this.makeHabitChoices()}
-                            </select>
-                        </label>
+                            <label>
+                                Habit:
+                                <br></br>
+                                <select habit={this.state.habit} onChange={this.handleHabitChange} class="form-control">
+                                    {this.makeHabitChoices()}
+                                </select>
+                            </label>
                         </div>
                         <div class="form-group">
-                        <label>
-                            Zipcode:
-                            <br></br>
-                            <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} class="form-control"/>
-                        </label>
+                            <label>
+                                Zipcode:
+                                <br></br>
+                                <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} class="form-control"/>
+                            </label>
                         </div>
                         <input type="submit" value="Submit Habit" class="btn btn-dark"/>
                     </form>
