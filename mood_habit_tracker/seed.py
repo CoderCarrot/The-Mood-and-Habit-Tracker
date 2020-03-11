@@ -38,7 +38,7 @@ def create_fake_users():
 
 def create_fake_habits():
 
-    for i in list(range(25)):
+    for i in list(range(100)):
         habit = fake.random_element(elements=('Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins'))
         user_id = 1
         weather_id = i + 1
@@ -50,11 +50,11 @@ def create_fake_habits():
 
 def create_fake_moods():
 
-    for i in list(range(50)):
+    for i in list(range(100)):
         mood = fake.random_element(elements=('Motivation', 'Sadness', 'Clarity'))
         intensity = fake.random_int(min=0, max=10, step=1)
         user_id = 1
-        weather_id = i + 26
+        weather_id = i + 101
         moods = Mood(mood=mood, 
                      intensity=intensity, 
                      user_id=user_id, 
@@ -64,10 +64,10 @@ def create_fake_moods():
 
 def create_fake_weather():
 
-    for i in list(range(75)):
+    for i in list(range(200)):
         time = fake.date_time_this_month(before_now=True, after_now=True, tzinfo=None)
         location = 'Pacifica'
-        sky_condition = fake.random_element(elements=('rain', 'clouds', 'clear'))
+        sky_condition = fake.random_element(elements=('broken clouds', 'scattered clouds', 'clear sky', 'moderate rain'))
         temp = fake.random_int(min=45, max=70, step=1)
         user_id = 1
         weather = Weather(time=time,
