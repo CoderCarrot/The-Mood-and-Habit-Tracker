@@ -79,7 +79,7 @@ class ComparisonForm extends React.Component {
                             <label>
                                 X-Axis:
                                 <br></br>
-                                <select className="form-control" xaxis={this.state.xAxis} onChange={this.handleXAxisChange}>
+                                <select className="form-control" value={this.state.xAxis} onChange={this.handleXAxisChange}>
                                     {this.makeXChoices()}
                                 </select>
                             </label>
@@ -88,7 +88,7 @@ class ComparisonForm extends React.Component {
                             <label>
                                 Y-Axis:
                                 <br></br>
-                                <select className="form-control" yaxis={this.state.yAxis} onChange={this.handleYAxisChange}>
+                                <select className="form-control" value={this.state.yAxis} onChange={this.handleYAxisChange}>
                                     {this.makeYChoices()}
                                 </select>
                             </label>

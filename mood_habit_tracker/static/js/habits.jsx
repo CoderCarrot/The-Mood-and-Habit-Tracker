@@ -4,7 +4,7 @@ class HabitForm extends React.Component {
 
         this.state = { choices: null,
                        habit: 'Drink 20 oz of water',
-                       zipcode: ' ' };
+                       zipcode: '' };
         this.makeHabitChoices = this.makeHabitChoices.bind(this);
         this.updateHabitForm = this.updateHabitForm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,10 +34,8 @@ class HabitForm extends React.Component {
     }
 
     postPost() {
-        alert(this.state.habit)
-        this.setState({habit: 'Drink 20 oz of water', zipcode: ' '});
-        // this.setState({zipcode: ' ' });
-        // document.getElementById('habit-form').reset();
+        alert('Habit has been entered!')
+        this.setState({habit: 'Drink 20 oz of water', zipcode: ''});
     }
 
     handleSubmit(event) {
@@ -68,7 +66,7 @@ class HabitForm extends React.Component {
                             <label>
                                 Habit:
                                 <br></br>
-                                <select habit={this.state.habit} onChange={this.handleHabitChange} className="form-control">
+                                <select value={this.state.habit} onChange={this.handleHabitChange} className="form-control">
                                     {this.makeHabitChoices()}
                                 </select>
                             </label>
@@ -77,7 +75,7 @@ class HabitForm extends React.Component {
                             <label>
                                 Zipcode:
                                 <br></br>
-                                <input type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange} className="form-control"/>
+                                <input type="text" value={this.state.zipcode} onChange={this.handleZipChange} className="form-control"/>
                             </label>
                         </div>
                         <input type="submit" value="Submit Habit" className="btn btn-dark"/>

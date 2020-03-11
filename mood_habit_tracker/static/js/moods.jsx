@@ -4,7 +4,8 @@ class MoodForm extends React.Component {
 
         this.state = { choices: null,
                        mood: 'Motivation',
-                       intensity: 0 };
+                       intensity: 0,
+                       zipcode: '' };
 
         this.makeMoodChoices = this.makeMoodChoices.bind(this);
         this.makeIntensityChoices = this.makeIntensityChoices.bind(this);
@@ -54,7 +55,8 @@ class MoodForm extends React.Component {
     }
 
     postPost() {
-        alert('Success!')
+        alert('Mood has been entered!')
+        this.setState({mood: 'Motivation', intensity: 0, zipcode: ''});
     }
 
     handleSubmit(event) {
@@ -91,7 +93,7 @@ class MoodForm extends React.Component {
                             <label>
                                 Mood:
                                 <br></br>
-                                <select className="form-control" mood={this.state.mood} onChange={this.handleMoodChange}>
+                                <select className="form-control" value={this.state.mood} onChange={this.handleMoodChange}>
                                     {this.makeMoodChoices()}
                                 </select>
                             </label>
@@ -100,7 +102,7 @@ class MoodForm extends React.Component {
                             <label>
                                 Intensity:
                                 <br></br>
-                                <select className="form-control" intensity={this.state.intensity} onChange={this.handleIntensityChange}>
+                                <select className="form-control" value={this.state.intensity} onChange={this.handleIntensityChange}>
                                     {this.makeIntensityChoices()}
                                 </select>
                             </label>
@@ -109,7 +111,7 @@ class MoodForm extends React.Component {
                             <label>
                                 Zipcode:
                                 <br></br>
-                                <input className="form-control" type="text" zipcode={this.state.zipcode} onChange={this.handleZipChange}/>
+                                <input className="form-control" type="text" value={this.state.zipcode} onChange={this.handleZipChange}/>
                             </label>
                         </div>
                         <input type="submit" value="Submit Mood"  className="btn btn-dark"/>
