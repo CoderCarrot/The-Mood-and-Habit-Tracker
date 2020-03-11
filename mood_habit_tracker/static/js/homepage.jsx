@@ -3,7 +3,7 @@ class Homepage extends React.Component {
         return(
             
             <div id="homepage" className="d-flex align-self-center min-vh-100">
-                <h1>Welcome to your Mood/Habit Tracker</h1>
+                <h1>Welcome to the Mood & Habit Tracker</h1>
             </div>
             
         );

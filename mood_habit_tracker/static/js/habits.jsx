@@ -25,15 +25,6 @@ class HabitForm extends React.Component {
         this.getHabitChoices();
     }
 
-    // makePullDown() {
-    //     const pullDownMenus = [];
-
-    //     for (const pullDownChoices of this.state.choices) {
-    //         pullDownMenus.push(<PullDown choices={pullDownChoices} />);
-    //     }
-    //     return pullDownMenus
-    // }
-
     makeHabitChoices() {
         const pullDownChoices = []
         for (const choice of this.state.choices) {
@@ -43,15 +34,15 @@ class HabitForm extends React.Component {
     }
 
     postPost() {
-        alert('Success!');
-        this.setState({habit: 'Drink 20 oz of water'});
-        this.setState({zipcode: ' ' });
+        alert(this.state.habit)
+        this.setState({habit: 'Drink 20 oz of water', zipcode: ' '});
+        // this.setState({zipcode: ' ' });
+        // document.getElementById('habit-form').reset();
     }
 
     handleSubmit(event) {
         event.preventDefault(); 
         $.post('/habits.json', this.state, this.postPost);
-        // refresh page with input data for last month
     }
 
     handleHabitChange(event) {
@@ -66,10 +57,11 @@ class HabitForm extends React.Component {
 
     render() {
         if (this.state.choices) {
+            console.log('render', this.state)
             return (
                 <div id="top">
                 <div id='next'>
-                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="habit-form">
                     <form onSubmit={this.handleSubmit}>
                     <h2>Enter Habit Here</h2>
                         <div className="form-group">

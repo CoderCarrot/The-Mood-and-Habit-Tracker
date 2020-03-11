@@ -14,28 +14,21 @@ PLACEHOLDER = 1
 ####################################################################################################################################################
 """React page code"""
 
+@app.route('/')
+def get_homepage():
+    """Show homepage."""
+
+    return render_template('base.html')
+
 @app.route('/moods.json', methods=['GET'])
 def get_mood_json():
     """Send mood form options."""
 
     mood_choices = ['Motivation', 'Sadness', 'Clarity']
 
-    # def create_num_dicts(numList):
-    #     num_dicts = []
-    #     for num in numList:
-    #         num_dicts.append(
-    #             {
-    #                 'value': num,
-    #                 'inner': num
-    #             }
-    #         )
-    #     return num_dicts
-    
-    #Number choices for the intensity pulldown menu
-    # intensityChoices = create_num_dicts(range(0, 11));
     intensity_choices = list(range(11))
 
-    time.sleep(1)
+    # time.sleep(1)
 
     return jsonify({'moods': mood_choices, 'intensity': intensity_choices})
 
@@ -65,7 +58,7 @@ def get_habit_json():
 
     habit_choices = ['Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins']
 
-    time.sleep(1)
+    # time.sleep(1)
 
     return jsonify({'habits': habit_choices})
 
@@ -92,7 +85,7 @@ def get_comparison_choices_json():
 
     comparison_choices = ['Motivation', 'Sadness', 'Clarity', 'Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins', 'Weather sky condition']
 
-    time.sleep(1)
+    # time.sleep(1)
 
     return jsonify({'x_choices': comparison_choices[3:], 'y_choices': comparison_choices[:3]})
 
@@ -113,7 +106,7 @@ def get_comparison_chart_data():
         habit_times = set()
         # loop through query results to change timestamp to just date and add to set
         for habit in habits:
-            habit_time = habit.weathers.time.replace(hour=0, minute=0, second=0)
+            habit_time = habit.weathers.time.replace(hour=0, minute=0, second=0, microsecond=0)
             habit_times.add(habit_time)
         
         # query moods based on the y-axis provided
@@ -123,7 +116,7 @@ def get_comparison_chart_data():
         habit_false = []
         # loop through moods to change timestamp to just date
         for mood in moods:
-            mood_time = mood.weathers.time.replace(hour=0, minute=0, second=0)
+            mood_time = mood.weathers.time.replace(hour=0, minute=0, second=0, microsecond=0)
             # compare mood date to habit date to sort mood intensity into days habit was and wasn't performed
             if mood_time in habit_times:
                 habit_true.append(mood.intensity)
@@ -151,18 +144,18 @@ def get_comparison_chart_data():
         chart_data['data'] = avg_cond
         
 
-    time.sleep(1)
+    # time.sleep(1)
 
     return jsonify(chart_data)
 
 ######################################################################################################################################################
 """Jinja page code"""
 
-@app.route('/')
-def get_homepage():
-    """Show homepage."""
+# @app.route('/')
+# def get_homepage():
+#     """Show homepage."""
 
-    return render_template('base.html')
+#     return render_template('base.html')
 
 
 @app.route('/moods', methods=['GET'])
@@ -224,7 +217,7 @@ def post_habit():
     return render_template("habit_entered.html")
 
 #####################################################################################################################################################
-
+# API functions
 
 def get_weather(zipcode):
     """Takes in a zipcode, sends the request to the API and returns the jsonified response."""
@@ -243,8 +236,8 @@ def get_weather(zipcode):
 def parse_weather(weather_info):
     """Takes in jsonified weather info and parses it for entry into the database. Returns the data to be inserted."""
     
-    timestamp = weather_info['dt']
-    time = datetime.datetime.fromtimestamp(timestamp)
+    # timestamp = weather_info['dt']
+    time = datetime.datetime.now()
     location = weather_info['name']
     sky_condition = weather_info['weather'][0]['description']
     temp_kelvin = weather_info['main']['temp']
