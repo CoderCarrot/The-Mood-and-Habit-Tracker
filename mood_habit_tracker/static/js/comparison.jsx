@@ -135,6 +135,7 @@ class ComparisonChart extends React.Component {
 
     createChart() {
         this.setState({chart: true})
+        Chart.defaults.global.defaultFontColor = 'black';
         let ctx = document.getElementById('bar-chart');
         if (ctx) {
             this.barChart = new Chart(ctx, {
@@ -144,13 +145,14 @@ class ComparisonChart extends React.Component {
                     datasets: [
                         {
                             label: `Intensity of ${this.props.responseData.y_axis}`,
-                            backgroundColor: ['#4ac828', '#5628c8', '#284ac8'],
+                            backgroundColor: ['#4ac828', '#d38f37', '#5628c8', '#a50101', '#284ac8', '#1a0315'],
                             data: this.props.responseData.data
                         }
                     ]
                 },
                 options: {
-                    legend: {display: false},
+                    legend: {display: false,        
+                        },
                     title: {
                         display: true,
                         text: `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`

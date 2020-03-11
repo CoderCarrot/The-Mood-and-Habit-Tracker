@@ -67,9 +67,9 @@ class HabitForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
-                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
-                    <h2>Enter Habit Here</h2>
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
                     <form onSubmit={this.handleSubmit}>
+                    <h2>Enter Habit Here</h2>
                         <div className="form-group">
                             <label>
                                 Habit:
