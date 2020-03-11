@@ -31,25 +31,34 @@ html {
 }
 
 #homepage {
-    text-align: center;
-    vertical-align: center;
     
 }
+
+/* #form {
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 20%;
+} */
 
 body{
     background-color: transparent;
     text-align: center;
 }
 
-#app {
-    /* background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat; */
+.row {
+    display: flex;
+}
+
+/* #app {
+    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
     background-size: cover;
     height: 100%;
     text-align: center;
     display: flex;
     align-items: center;
     position: relative;
-}
+} */
 
 /* .form {
     text-align: center;
@@ -71,10 +80,26 @@ form:before {
     border-radius: 10px;
 }
 
+#top {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#next {
+    align-self: center;
+    width: 100%;
+}
+
 h1 {
     font-family: 'Mali', cursive;
     font-weight: bold;
     font-size: 500%;
+    vertical-align: center;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 h2 {

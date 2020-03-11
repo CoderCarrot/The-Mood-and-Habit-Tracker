@@ -82,6 +82,8 @@ class MoodForm extends React.Component {
     render() {
         if (this.state.choices) {
             return (
+                <div id="top">
+                <div id='next'>
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Enter Mood Here</h2>
                     <form onSubmit={this.handleSubmit}>
@@ -112,6 +114,8 @@ class MoodForm extends React.Component {
                         </div>
                         <input type="submit" value="Submit Mood"  className="btn btn-dark"/>
                     </form>
+                </div>
+                </div>
                 </div>
             ); 
         }
