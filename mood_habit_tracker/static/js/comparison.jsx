@@ -179,12 +179,14 @@ class ComparisonChart extends React.Component {
     }
 
     render() { 
-        
-        return (
-            <div>
-                <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
-            </div>
-        );
+        if (this.props.responseData) {
+            return (
+                <div>
+                    <canvas id="bar-chart" ref={this.chartRef} width="800" height="450"/>
+                </div>
+            );
+        }
+        return null
 
         
     }
