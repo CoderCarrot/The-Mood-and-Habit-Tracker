@@ -100,6 +100,7 @@ h1 {
     position: relative;
     margin-top: auto;
     margin-bottom: auto;
+    justify-self: center;
 }
 
 h2 {
