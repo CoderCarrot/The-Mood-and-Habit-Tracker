@@ -133,7 +133,7 @@ def connect_to_db(app):
     """Connect to database."""
 
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///mood_habit_tracker"
-    app.config["SQLALCHEMY_ECHO"] = True
+    app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app
