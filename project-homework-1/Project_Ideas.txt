@@ -1,6 +1,0 @@
-Project Ideas:
-1: Bullet/Health Journal with charts and customizeable tracking and scales
-2: Wardrobe Tracker
-3: Google Maps route and time tracker
-4: Form maker with the options I need for work and output as a pdf in a readable way
-5: Recipe Book with meal-prep help and aimed at single servings

@@ -1,4 +1,0 @@
-env
-*secret*
-*.pyc
-.DS_Store
