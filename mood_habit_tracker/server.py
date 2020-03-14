@@ -1,12 +1,12 @@
 from flask import (Flask, jsonify, render_template, request, session)
 from model import (db, connect_to_db, User, Habit, Mood, Weather)
-from secrets import key
+from secrets import key, flask_key
 import requests
 import datetime
 import time
 
 app = Flask(__name__)
-app.secret_key = 'secrets are fun'
+app.secret_key = flask_key
 
 # Placeholder value for ids of tables before slices are connected
 PLACEHOLDER = 1
