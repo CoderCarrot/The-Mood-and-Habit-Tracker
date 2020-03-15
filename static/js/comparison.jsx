@@ -155,7 +155,7 @@ class ComparisonChart extends React.Component {
                         },
                     title: {
                         display: true,
-                        text: `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`
+                        text: `${this.props.responseData.y_axis} Intensity versus ${this.props.responseData.x_axis}`
                     },
                     scales: {
                         yAxes: [{
