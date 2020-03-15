@@ -174,7 +174,7 @@ class ComparisonChart extends React.Component {
         this.barChart.data.labels = this.props.responseData.labels;
         this.barChart.data.datasets[0].label = `Intensity of ${this.props.responseData.y_axis}`;
         this.barChart.data.datasets[0].data = this.props.responseData.data;
-        this.barChart.options.title.text = `${this.props.responseData.y_axis} Intensity versis ${this.props.responseData.x_axis}`;
+        this.barChart.options.title.text = `${this.props.responseData.y_axis} Intensity versus ${this.props.responseData.x_axis}`;
         this.barChart.update();
     }
 
