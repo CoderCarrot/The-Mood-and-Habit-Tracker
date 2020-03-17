@@ -14,7 +14,8 @@
 <li><a href="https://github.com/GazKris/HB_Project/blob/master/README.md#about-the-developer">About the Developer</a></li>
 </ul>
 <h2 id="summary"><strong>Summary</strong></h2>
-<p><strong>The Mood and Habit Tracker</strong> is a full-stack web application that allows you to track 3 moods, 3 habits, and weather at time of entry, to see if there is any correlation.</p>
+<p><strong>The Mood and Habit Tracker</strong> is a full-stack web application that allows you to track 3 moods, 3 habits, and weather at time of entry, to see if there is any correlation.<br>
+<strong>Deployed Site:</strong> <a href="http://moodsandhabits.com/">The Mood and Habit Tracker</a></p>
 <h2 id="tech-stack"><strong>Tech Stack</strong></h2>
 <p><strong>Front End:</strong> HTML5, CSS, Bootstrap, JavaScript, React, JQuery, Chart.js<br>
 <strong>Back End:</strong> Python, Flask, PostgresSQL, SQLAlchemy, OpenWeatherAPI</p>
