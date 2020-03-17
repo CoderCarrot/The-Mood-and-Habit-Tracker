@@ -3,6 +3,7 @@
 
 ---
 
+<h1 id="the-mood-and-habit-tracker"><strong>The Mood and Habit Tracker</strong></h1>
 <h2 id="table-of-contents"><strong>Table of Contents</strong></h2>
 <ul>
 <li><a href="https://github.com/GazKris/HB_Project/blob/master/README.md#summary">Summary</a></li>
