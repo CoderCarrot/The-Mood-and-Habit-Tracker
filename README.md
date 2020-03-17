@@ -51,8 +51,8 @@
 <h2 id="setupinstallation"><strong>Setup/Installation</strong></h2>
 <p>To run the app on your local computer, please follow the steps below:</p>
 <p>Clone the repository:</p>
-<p>(<a href="https://github.com/GazKris/HB_Project.git">The Mood Habit Tracker Repo</a>)</p>
-<pre><code> $ git clone https://github.com/GazKris/HB_Project.git
+<p>(<a href="https://github.com/GazKris/The-Mood-and-Habit-Tracker.git">The Mood Habit Tracker Repo</a>)</p>
+<pre><code> $ git clone https://github.com/GazKris/The-Mood-and-Habit-Tracker.git
 </code></pre>
 <p>Create a virtual environment:</p>
 <pre><code>$ virtualenv env
