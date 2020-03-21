@@ -76,9 +76,12 @@ Create database ‘mood_and_habit_tracker’:</p>
 <pre><code>$ python3 model.py
 </code></pre>
 <p>Create fake user info for placeholders:</p>
-<pre><code>$ python3 -i seed.py
-&gt;&gt; create_fake_users()
+<pre><code>$ python3 seed.py
 </code></pre>
+<p>It will ask:<br>
+<code>Would you like to create fake data? (Y/N)</code><br>
+Enter “N” if you only want to add your own data.<br>
+Enter “Y” if you would like a set of faked data to play with in all tables.</p>
 <p>Run app from the command line:</p>
 <pre><code>$ python3 server.py
 </code></pre>
