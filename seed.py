@@ -78,6 +78,23 @@ def create_fake_weather():
         db.session.add(weather)
     db.session.commit()
 
+def choose_fake_or_user_data():
+
+    answer = input('Would you like to create fake data? (Y/N) ')
+    controlled_answer = answer.upper()
+
+    if controlled_answer == 'Y':
+        create_fake_users()
+        create_fake_weather()
+        create_fake_habits()
+        create_fake_moods()
+    elif controlled_answer == 'N':
+        create_fake_users()
+    else:
+        print('Please enter a valid option (case sensitive): Y or N')
+        choose_fake_or_user_data()
+
+
 if __name__ == "__main__":
     connect_to_db(app)
 
@@ -85,8 +102,5 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import different types of data
-    create_fake_users()
-    create_fake_weather()
-    create_fake_habits()
-    create_fake_moods()
+    choose_fake_or_user_data()
     
