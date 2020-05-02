@@ -1,7 +1,5 @@
 """Utility file to seed mood_habit_tracker database using Faker"""
 
-from sqlalchemy import func
-
 from model import User
 from model import Habit
 from model import Mood
@@ -10,13 +8,13 @@ from model import Weather
 from model import connect_to_db, db
 from server import app
 
-import datetime
-
 from faker import Faker
 
 fake = Faker()
 
+
 def create_fake_users():
+    """Creates fake user entries to allow habit and mood entries"""
 
     for i in list(range(5)):
         first_name = fake.first_name()
@@ -36,7 +34,9 @@ def create_fake_users():
         db.session.add(user)
     db.session.commit()
 
+
 def create_fake_habits():
+    """Creates fake habit entries for use in the graph"""
 
     for i in list(range(100)):
         habit = fake.random_element(elements=('Drink 20 oz of water', 'Sleep 8 hours', 'Exercise for 20 mins'))
@@ -48,7 +48,9 @@ def create_fake_habits():
         db.session.add(habits)
     db.session.commit()
 
+
 def create_fake_moods():
+    """Creates fake mood entries for use in the graph"""
 
     for i in list(range(100)):
         mood = fake.random_element(elements=('Motivation', 'Sadness', 'Clarity'))
@@ -62,7 +64,9 @@ def create_fake_moods():
         db.session.add(moods)
     db.session.commit()
 
+
 def create_fake_weather():
+    """Creates fake weather entries for use in the graph"""
 
     for i in list(range(200)):
         time = fake.date_time_this_month(before_now=True, after_now=True, tzinfo=None)
@@ -78,7 +82,9 @@ def create_fake_weather():
         db.session.add(weather)
     db.session.commit()
 
+
 def choose_fake_or_user_data():
+    """Give user option of loading all fake data or creating fake user data for placeholders in the code"""
 
     answer = input('Would you like to create fake data? (Y/N) ')
     controlled_answer = answer.upper()

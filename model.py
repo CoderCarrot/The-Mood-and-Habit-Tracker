@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 ###############################################################################
 
+
 class User(db.Model):
     """Data model for a user."""
 
@@ -24,7 +25,7 @@ class User(db.Model):
     password = db.Column(db.String(50),
                          nullable=False)
 
-    #Relationships
+    #Relationships for table joins
     habits = db.relationship('Habit')
     moods = db.relationship('Mood')
     weathers = db.relationship('Weather')
@@ -55,7 +56,7 @@ class Habit(db.Model):
                            db.ForeignKey('weathers.weather_id'),
                            nullable=False)
 
-    #Relationships
+    #Relationships for table joins
     users = db.relationship('User')
     weathers = db.relationship('Weather')
 
@@ -84,7 +85,7 @@ class Mood(db.Model):
                            db.ForeignKey('weathers.weather_id'),
                            nullable=False)
 
-    #Relationships
+    #Relationships for table joins
     users = db.relationship('User')
     weathers = db.relationship('Weather')
 
@@ -114,7 +115,7 @@ class Weather(db.Model):
                         db.ForeignKey('users.user_id'),
                         nullable=False)
 
-    #Relationship
+    #Relationships for table joins
     users = db.relationship('User')
     habits = db.relationship('Habit')
     moods = db.relationship('Mood')
