@@ -32,7 +32,7 @@ def get_mood_json():
     intensity_choices = list(range(11))
 
     # Used to test loading graphic. Left in for use in future interations
-    # time.sleep(1)
+    time.sleep(1)
 
     # Sends the mood and intensity choices to the front end via a data shape
     # that is easy for the front end to process.

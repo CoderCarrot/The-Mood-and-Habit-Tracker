@@ -4,7 +4,7 @@ class MoodForm extends React.Component {
 
         // Default state of this component. Using null for "choices" enables conditional rendering.
         // "Motivation" and "0" are the first choice in their respective drop-down menus so that they 
-        // will be sent to the backend, even if the drop - down menues are not altered(see "handleChange" below).
+        // will be sent to the backend, even if the drop-down menus are not altered(see "handleChange" below).
         this.state = { choices: null,
                        mood: 'Motivation',
                        intensity: 0,
@@ -22,7 +22,7 @@ class MoodForm extends React.Component {
     }
 
     // Sets the state for "choices" to include options for the mood and intesity drop-down menus.
-    // The state will change from null, therefore satidfying the condition for the conditional render below.
+    // The state will change from null, therefore satisfying the condition for the conditional render below.
     updateMoodForm(res) {
         this.setState({ choices: [res.moods, res.intensity] });
     }
@@ -47,8 +47,8 @@ class MoodForm extends React.Component {
     //     return pullDownMenus
     // }
 
-    // Creates the HTML code for the mood drop-down menus using the newly updated state.
-    // Used in the render funtion to properly place the menus.
+    // Creates the HTML code for the mood drop-down menu using the newly updated state.
+    // Used in the render funtion to properly place the menu.
     makeMoodChoices() {
         const pullDownChoices = []
         for (const choice of this.state.choices[0]) {
@@ -68,14 +68,14 @@ class MoodForm extends React.Component {
     }
 
     // Pops an alert on the page so the user sees their information has successfuly been entered and posted.
-    // Resets the state to defaults so the form can be used again without sending incorrect data.
+    // Resets the state to defaults so the form can be used again without refreshing the page.
     postPost() {
         alert('Mood has been entered!')
         this.setState({mood: 'Motivation', intensity: 0, zipcode: ''});
     }
 
     // Prevents the default action of the submit button to redirect, since this is a single-page web-app.
-    // Sends a post request to the server that provides the information put in by the user to be entered into the datbase.
+    // Sends a post request to the server that provides the information put in by the user to be entered into the database.
     // Calls the funtion above after data is posted.
     handleSubmit(event) {
         event.preventDefault();
@@ -111,13 +111,13 @@ class MoodForm extends React.Component {
         // Conditional rendering to allow asynchronous function calls, ensuring the data needed is present before attempted use. 
         if (this.state.choices) {
             return (
-                // Div containers to allow the formatting desired (centering)
+                // Div containers to allow the formatting desired (centering).
                 <div id="top">
                 <div id="next">
-                {/* Responsive Bootstrap formatting to allow form to be usable on multiple monitor sizes */}
+                {/* Responsive Bootstrap formatting to allow form to be usable on multiple monitor sizes. */}
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4" id="form">
                     <h2>Enter Mood Here</h2>
-                    {/* Calls to the function above when the submit button is clicked to prevent default and handle data appropriately. */}
+                    {/* Calls to a function above when the submit button is clicked to prevent default and handle data appropriately. */}
                     <form onSubmit={this.handleSubmit}>
                         {/* The mood drop-down menu box for the form. */}
                         <div className="form-group">
@@ -159,7 +159,7 @@ class MoodForm extends React.Component {
                                 <input className="form-control" type="text" value={this.state.zipcode} onChange={this.handleZipChange}/>
                             </label>
                         </div>
-                        {/* Sets submit button text to "Submit mood" and uses Bootstrap to format the button to their "dark" option. */}
+                        {/* Sets submit button text to "Submit Mood" and uses Bootstrap to format the button to their "dark" option. */}
                         <input type="submit" value="Submit Mood"  className="btn btn-dark"/>
                     </form>
                 </div>
