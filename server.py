@@ -275,11 +275,13 @@ def get_weather(zipcode):
     """Take in a zipcode, sends the request to the API and return the
     jsonified response."""
 
+    # Send the payload (the API key and zipcode) to the OpenWeather API to
+    # get current weather data.
     url = 'http://api.openweathermap.org/data/2.5/weather'
     payload = {'APPID': key,
                'zip': f'{zipcode},us'}
 
-    # Get the current weather response from the openWeather API
+    # Get the current weather response from the OpenWeather API.
     res = requests.get(url, params=payload)
     weather_info = res.json()
 
@@ -290,14 +292,18 @@ def parse_weather(weather_info):
     """Take in jsonified weather info and parse it for entry into the
     database. Return the data to be inserted."""
 
-    # timestamp = weather_info['dt']
+    # Used local time due to API response being cached when a the same
+    # payload is send without restarting the browser session
     time_stamp = datetime.datetime.now()
+    # Parse the API response. Temp and location to be used in future iteration
+    # of app.
     location = weather_info['name']
     sky_condition = weather_info['weather'][0]['description']
     temp_kelvin = weather_info['main']['temp']
     temp_farenheit = (temp_kelvin - 273.15) * 9/5 + 32
     temp_int = int(temp_farenheit)
 
+    # Create the insert for the database
     ins = Weather(time=time_stamp,
                   location=location,
                   sky_condition=sky_condition,
@@ -311,9 +317,12 @@ def post_weather(insert):
     """Take in a database insert to insert into the database and commit.
     Obtain and return the insert id."""
 
+    # Insert and commit the parsed weather data.
     db.session.add(insert)
     db.session.commit()
 
+    # Get the weather id from the weather entry to insert into the
+    # mood/habit database.
     weather_entry_id = insert.weather_id
 
     return weather_entry_id

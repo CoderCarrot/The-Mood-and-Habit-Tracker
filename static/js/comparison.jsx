@@ -99,6 +99,7 @@ class ComparisonForm extends React.Component {
                 </div>
             ); 
         }
+        // Renders a spinner and the word "Loading..." until the form can render with the appropriate data.
         return (<div className="spinner-border text-success" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>)
@@ -106,8 +107,10 @@ class ComparisonForm extends React.Component {
     }
 }
 
+// Commented out in favor of a single-page web-app using React Router. Left in for potential use in changes, debugging, or experimentation.
 // ReactDOM.render(<ComparisonForm />, document.getElementById('comparison-form'));
 
+// Chart component used in comparison page.
 class ComparisonChart extends React.Component {
 
     constructor(props) {

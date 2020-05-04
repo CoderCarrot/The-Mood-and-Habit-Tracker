@@ -1,3 +1,6 @@
+// This file is not currently used in the app. It was an attempt at re-usable components 
+// before time became a priority.Left in the code bank for future iterations.
+
 // Pulldown menu component to re-use for mood, intensity, and habits
 class PullDown extends React.Component {
     constructor(props) {

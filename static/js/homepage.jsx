@@ -10,4 +10,5 @@ class Homepage extends React.Component {
     }
 }
 
+// Commented out in favor of a single-page web-app using React Router. Left in for potential use in changes, debugging, or experimentation.
 // ReactDOM.render(<Homepage />, document.getElementById('homepage'));
